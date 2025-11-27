@@ -13,14 +13,7 @@ You should probably not really use this, and use OpenShift instead :-)
 
 ## High level main technical components
 
-* Fedora
-* Ansible
-* Flux
-* metallb
-* nfs-externaldir
-* kyverno
-* kubemetrics
-* kube-state-metrics
+<img src="docs/source/assets/architecture.png" alt="architecture">
 
 All components are documented in the **docs**: https://jamesread.github.io/AmberKube
 

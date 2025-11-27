@@ -11,7 +11,7 @@ A robust little Kubernetes distribution, designed for low hardware overhead.
 **WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. It is an ongoing experiment from [James Read](https://jread.com), where he uses it for his various kubernetes clusters in a self hosted setup. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
 
 
-<img src="assets/architecture.png" alt="Architecture Diagram" width="600">
+<img src="assets/architecture.png" alt="Architecture Diagram">
 
 ## Layers
 
