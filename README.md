@@ -11,7 +11,7 @@ You should probably not really use this, and use OpenShift instead :-)
 
 * **Documentation**: https://jamesread.github.io/AmberKube
 
-## High level main technical components
+## Architecture
 
 <img src="docs/source/assets/architecture.png" alt="architecture">
 
