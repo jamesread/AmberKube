@@ -24,21 +24,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install mkdocs-material
-        run: pip install mkdocs-material
-
-      - name: Build documentation
-        working-directory: docs
-        run: mkdocs build
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: docs/site
-          retention-days: 30
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # CUSTOM_DOMAIN: optionaldomain.com
+          CONFIG_FILE: mkdocs.yml
+          # EXTRA_PACKAGES: build-base
+          # GITHUB_DOMAIN: github.myenterprise.com
+          # REQUIREMENTS: folder/requirements.txt
