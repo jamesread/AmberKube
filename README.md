@@ -20,7 +20,9 @@ You should probably not really use this, and use OpenShift instead :-)
 * nfs-externaldir
 * kyverno
 * kubemetrics
-* kube-estate-metrics
+* kube-state-metrics
+
+All components are documented in the **docs**: https://jamesread.github.io/AmberKube
 
 ## Design goal: zero upstream changes
 
