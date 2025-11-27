@@ -1,6 +1,6 @@
 # Kubemetrics
 
-- **Component path:** [`iac/kubernetes/kubemetrics`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/kubemetrics)
+- **Component path:** [`iac/kubernetes/kubemetrics`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/kubemetrics)
 - **Description:** _Custom metrics aggregation resources for the homelab._
 
 - **Homepage:** [https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)

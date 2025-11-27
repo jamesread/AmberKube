@@ -1,6 +1,6 @@
 # Keycloak
 
-- **Component path:** [`iac/kubernetes/keycloak`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/keycloak)
+- **Component path:** [`iac/kubernetes/keycloak`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/keycloak)
 - **Description:** _Keycloak identity provider deployment and ingress._
 
 - **Homepage:** [https://www.keycloak.org/](https://www.keycloak.org/)

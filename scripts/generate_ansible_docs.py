@@ -111,7 +111,7 @@ def render_tasks_section(tasks: list[dict]) -> str:
 
 
 def render_markdown(role_dir: Path, repo_root: Path) -> str:
-    repo_url = f"https://github.com/xconspirisist/kubernetes-homelab/tree/main/{role_dir.relative_to(repo_root).as_posix()}"
+    repo_url = f"https://github.com/jamesread/AmberKube/tree/main/{role_dir.relative_to(repo_root).as_posix()}"
     title = slug_to_title(role_dir.name)
     description = read_description(role_dir)
     files = list_files(role_dir)

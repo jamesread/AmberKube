@@ -1,6 +1,6 @@
 # Nfs
 
-- **Component path:** [`iac/kubernetes/nfs`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/nfs)
+- **Component path:** [`iac/kubernetes/nfs`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/nfs)
 - **Description:** _NFS server manifests for shared persistent storage._
 
 - **Homepage:** [https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/)

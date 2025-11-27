@@ -1,6 +1,6 @@
 # Cert Manager
 
-- **Component path:** [`iac/kubernetes/cert-manager`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/cert-manager)
+- **Component path:** [`iac/kubernetes/cert-manager`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/cert-manager)
 - **Description:** _Manages ACME/PKI certificates via cert-manager controllers._
 
 - **Homepage:** [https://cert-manager.io/](https://cert-manager.io/)

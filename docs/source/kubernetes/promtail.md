@@ -1,6 +1,6 @@
 # Promtail
 
-- **Component path:** [`iac/kubernetes/promtail`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/promtail)
+- **Component path:** [`iac/kubernetes/promtail`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/promtail)
 - **Description:** _Promtail agents that ship logs to the Loki stack._
 
 - **Homepage:** [https://grafana.com/oss/loki/](https://grafana.com/oss/loki/)

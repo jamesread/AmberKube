@@ -126,7 +126,7 @@ def render_deployment_section(releases: list[dict]) -> str:
 
 def repo_url_for(path: Path, repo_root: Path) -> str:
     relative = path.relative_to(repo_root)
-    return f"https://github.com/xconspirisist/kubernetes-homelab/tree/main/{relative.as_posix()}"
+    return f"https://github.com/jamesread/AmberKube/tree/main/{relative.as_posix()}"
 
 
 def load_metadata(component_dir: Path) -> dict:

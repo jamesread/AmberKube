@@ -1,6 +1,6 @@
 # Knative Serving
 
-- **Component path:** [`iac/kubernetes/knative-serving`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/knative-serving)
+- **Component path:** [`iac/kubernetes/knative-serving`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/knative-serving)
 - **Description:** _Knative Serving components enabling serverless workloads on Kubernetes._
 
 - **Homepage:** [https://knative.dev/docs/serving/](https://knative.dev/docs/serving/)

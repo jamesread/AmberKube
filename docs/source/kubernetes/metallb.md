@@ -1,6 +1,6 @@
 # Metallb
 
-- **Component path:** [`iac/kubernetes/metallb`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/metallb)
+- **Component path:** [`iac/kubernetes/metallb`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/metallb)
 - **Description:** _MetalLB load balancer configuration for bare-metal services._
 
 - **Homepage:** [https://metallb.universe.tf/](https://metallb.universe.tf/)

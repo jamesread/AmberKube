@@ -1,6 +1,6 @@
 # Kube Dashboard
 
-- **Component path:** [`iac/kubernetes/kube-dashboard`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/kube-dashboard)
+- **Component path:** [`iac/kubernetes/kube-dashboard`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/kube-dashboard)
 - **Description:** _Kubernetes Dashboard web UI and supporting manifests._
 
 - **Homepage:** [https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)

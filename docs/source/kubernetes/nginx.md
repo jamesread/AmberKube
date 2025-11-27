@@ -1,6 +1,6 @@
 # Nginx
 
-- **Component path:** [`iac/kubernetes/nginx`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/nginx)
+- **Component path:** [`iac/kubernetes/nginx`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/nginx)
 - **Description:** _NGINX ingress controller configuration and values._
 
 - **Homepage:** [https://kubernetes.github.io/ingress-nginx/](https://kubernetes.github.io/ingress-nginx/)

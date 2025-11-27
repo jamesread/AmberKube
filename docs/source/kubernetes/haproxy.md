@@ -1,6 +1,6 @@
 # Haproxy
 
-- **Component path:** [`iac/kubernetes/haproxy`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/haproxy)
+- **Component path:** [`iac/kubernetes/haproxy`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/haproxy)
 - **Description:** _HAProxy ingress layer plus metrics/stats endpoints._
 
 - **Homepage:** [https://www.haproxy.org/](https://www.haproxy.org/)

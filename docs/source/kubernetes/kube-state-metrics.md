@@ -1,6 +1,6 @@
 # Kube State Metrics
 
-- **Component path:** [`iac/kubernetes/kube-state-metrics`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/kube-state-metrics)
+- **Component path:** [`iac/kubernetes/kube-state-metrics`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/kube-state-metrics)
 - **Description:** _kube-state-metrics deployment exposing cluster objects as metrics._
 
 - **Homepage:** [https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)

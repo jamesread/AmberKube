@@ -1,6 +1,6 @@
 # Machine K8s
 
-- **Role path:** [`iac/ansible/roles/machine_k8s`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/ansible/roles/machine_k8s)
+- **Role path:** [`iac/ansible/roles/machine_k8s`](https://github.com/jamesread/AmberKube/tree/main/iac/ansible/roles/machine_k8s)
 - **Description:** Install a k8s node (could be a control/worker).
 
 ## Tasks

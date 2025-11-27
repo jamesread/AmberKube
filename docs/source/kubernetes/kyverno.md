@@ -1,6 +1,6 @@
 # Kyverno
 
-- **Component path:** [`iac/kubernetes/kyverno`](https://github.com/xconspirisist/kubernetes-homelab/tree/main/iac/kubernetes/kyverno)
+- **Component path:** [`iac/kubernetes/kyverno`](https://github.com/jamesread/AmberKube/tree/main/iac/kubernetes/kyverno)
 - **Description:** _Kyverno policy engine enforcing admission policies._
 
 - **Homepage:** [https://kyverno.io/](https://kyverno.io/)
