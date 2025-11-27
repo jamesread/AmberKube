@@ -2,6 +2,9 @@
   "name": "amberkube",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "release": "semantic-release"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^11.1.0",
