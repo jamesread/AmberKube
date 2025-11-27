@@ -1,0 +1,69 @@
+classes: {
+  label.near: top-center
+  app: {
+    style: {
+      stroke-dash: 2
+      fill: transparent
+    }
+  }
+
+  transparent: {
+    style: {
+      fill: transparent
+      stroke: transparent
+    }
+  }
+}
+
+stack: "" {
+  label.near: bottom-center
+  grid-columns: 1
+  horizontal-gap: 24
+  vertical-gap: 20
+
+  apps: {
+    label: "App Layer"
+    label.near: top-center
+    style.fill: "#fff"
+    style.stroke-dash: 2
+    app1.class: app
+    app2.class: app
+    app3.class: app
+    appdot.class: transparent
+    appdot.label: "..."
+    appN.class: app
+  }
+
+  kube-infra: "Platform Layer" {
+    label.near: top-center
+    grid-rows: 4
+    grid-gap: 22
+    cert-manager
+    descheduler
+    kube-state-metrics
+    metal-lb
+    flux
+    istio
+    keycloak
+    knative-serving
+    kubemetrics
+    kube-dashboard
+    prometheus
+    kube-state-metrics
+    kyverno
+    metallb
+    nfs
+    nginx
+    node-exporter
+    olm
+    promtail
+  }
+
+  workers: "Infra Layer" {
+    style.fill: "#fff"
+    label.near: top-center
+    fedora-worker1
+    fedora-worker2
+    fedora-worker3
+  }
+}
