@@ -3,5 +3,6 @@ docs_dir: source
 repo_url: https://github.com/jamesread/kubernetes-homelab/
 theme:
     name: material
+    logo: assets/amberkube.svg
     palette:
       primary: amber

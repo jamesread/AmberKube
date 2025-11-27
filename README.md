@@ -1,8 +1,19 @@
-# AmberKubee
+<div align = "center">
+  <img src="docs/source/assets/amberkube.svg" alt="AmberKube Logo" width="128">
+  <h1>AmberKube</h1>
+</div>
 
-A simple, little Kubernetes distribution, design for low hardware overhead.
+A robust little Kubernetes distribution, designed for zero upstream changes, low hardware requirements, and maintained with AI.
 
 **WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. It is an ongoing experiment from [James Read](https://jread.com), where he uses it for his various kubernetes clusters in a self hosted setup. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
+
+You should probably not really use this, and instead use OpenShift instead :-)
+
+Documentation: jamesread.github.io/AmberKube
+
+## Design goal: zero upstream changes
+
+* Relies on upstream projects, direct from upstream source.
 
 ## Design goal: low hardware overhead
 
@@ -10,16 +21,6 @@ A simple, little Kubernetes distribution, design for low hardware overhead.
 * Emphasis on using as few projects as is practical, with low resource usage.
 * Targets full Fedora (not container distros like CoreOS or Talos), because it's easy to setup, manage snd debug. It's also readily available on many cloud providers.
 * Helm, because of zero overhead post-install, even though it sucks for Day2.
-
-## Design goal: high quality
-
-* Lots of static linting: precommit, yamlfix, etc.
-* Initial deploy via ansible.
-* CI and aggressive testing via GitHub actions.
-* CD via Flux.
-* Use well established mature projects.
-* Well documented via Mkdocs.
-* Uses Semver, with the major version tracking Fedora.
 
 ## Anti design goals
 

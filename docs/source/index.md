@@ -1,6 +1,10 @@
 # AmberKube
 
-A simple, little Kubernetes distribution, design for low hardware overhead.
+<div align="center">
+  <img src="assets/amberkube.svg" alt="AmberKube Logo" width="200">
+</div>
+
+A robust little Kubernetes distribution, designed for low hardware overhead.
 
 ---
 
