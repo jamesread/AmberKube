@@ -7,7 +7,7 @@ A robust little Kubernetes distribution, designed for zero upstream changes, low
 
 **WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. It is an ongoing experiment from [James Read](https://jread.com), where he uses it for his various kubernetes clusters in a self hosted setup. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
 
-You should probably not really use this, and instead use OpenShift instead :-)
+You should probably not really use this, and use OpenShift instead :-)
 
 Documentation: jamesread.github.io/AmberKube
 
