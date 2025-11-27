@@ -17,6 +17,10 @@ on:
       - '.github/workflows/docs.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
