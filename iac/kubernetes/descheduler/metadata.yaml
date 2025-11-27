@@ -1,0 +1,3 @@
+description: Kubernetes Descheduler that periodically evicts pods to rebalance nodes.
+homepage: https://kubernetes-sigs.github.io/descheduler/
+repository: https://github.com/kubernetes-sigs/descheduler

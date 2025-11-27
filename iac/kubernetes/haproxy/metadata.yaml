@@ -1,0 +1,3 @@
+description: HAProxy ingress layer plus metrics/stats endpoints.
+homepage: https://www.haproxy.org/
+repository: https://github.com/haproxy/haproxy

@@ -1,0 +1,18 @@
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - serving-crds.yaml
+
+---
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - knative-istio.yaml
+  - istio.yaml
+  - net-istio.yaml

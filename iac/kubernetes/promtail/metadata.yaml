@@ -1,0 +1,3 @@
+description: Promtail agents that ship logs to the Loki stack.
+homepage: https://grafana.com/oss/loki/
+repository: https://github.com/grafana/loki

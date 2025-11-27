@@ -1,0 +1,4 @@
+kind: Kustomization
+resources: []
+# - components.yaml
+namespace: kube-system

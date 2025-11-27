@@ -1,0 +1,3 @@
+description: Flux GitOps controllers that reconcile cluster state from this repo.
+homepage: https://fluxcd.io/
+repository: https://github.com/fluxcd/flux2

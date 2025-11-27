@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-flux
+  namespace: flux-system
+spec:
+  rules:
+  - host: flux-kustomize-prom.k8s.teratan.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: kustomize-controller
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific

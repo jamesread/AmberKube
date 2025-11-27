@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: telegram-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: telegram
+spec:
+  type: telegram
+  address: https://api.telegram.org
+  channel: "111445556" # or "-1557265138" (channel id)
+  secretRef:
+    name: telegram-token

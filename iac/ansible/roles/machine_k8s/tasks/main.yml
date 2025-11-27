@@ -1,0 +1,116 @@
+---
+  - name: Disable SELinux
+    ansible.posix.selinux:
+      state: disabled
+    notify: Reboot
+
+  - name: Flush Handlers
+    ansible.builtin.meta: flush_handlers
+
+  - name: Check if crio is installed
+    ansible.builtin.stat:
+      path: /usr/bin/crio
+    register: crio
+
+  - name: Install Kubernetes if it isn't already
+    when: not crio.stat.exists
+    block:
+      - name: Install Kubernetes packages
+        ansible.builtin.package:
+          name:
+            - ethtool
+            - cri-o1.34
+            - cri-tools1.34
+            - kubernetes1.34
+            - kubernetes1.34-client
+            - kubernetes1.34-kubeadm
+            - nfs-utils
+            - iptables-nft
+            - iproute-tc
+          state: installed
+        tags: k8s_packages
+
+      - name: Remove unwanted packages
+        ansible.builtin.package:
+          name:
+            - firewalld
+            - zram-generator
+            - zram-generator-defaults
+          state: removed
+        tags: k8s_packages
+
+  - name: Copy k8s modprobe
+    ansible.builtin.copy:
+      dest: /etc/modules-load.d/k8s.conf
+      src: files/k8s-modprobe.conf
+      mode: '0644'
+
+  - name: Modprobe netfilter
+    community.general.modprobe:
+      name: br_netfilter
+      state: present
+
+  - name: Service - enable and start CRIO
+    ansible.builtin.service:
+      name: crio
+      state: started
+      enabled: true
+
+  - name: Enable IPv4 forwarding via syscyl
+    ansible.posix.sysctl:
+      name: net.ipv4.ip_forward
+      value: '1'
+      state: present
+
+  - name: Do something with sysctl (ipv4)
+    ansible.posix.sysctl:
+      name: net.bridge.bridge-nf-call-iptables
+      value: '1'
+      state: present
+
+  - name: Do something with sysctl (ipv6)
+    ansible.posix.sysctl:
+      name: net.bridge.bridge-nf-call-ip6tables
+      value: '1'
+      state: present
+
+  - name: Reload, start and enable kubelet
+    ansible.builtin.service:
+      name: kubelet
+      daemon_reload: true
+      enabled: true
+      state: started
+    tags: kubelet
+
+  - name: Stop and disable resolved
+    ansible.builtin.service:
+      name: systemd-resolved
+      enabled: false
+      state: stopped
+    tags: resolved
+    notify: Reboot
+
+  - name: Flush Handlers
+    ansible.builtin.meta: flush_handlers
+
+  - name: Remove old systemd-resolved resolv.conf stub
+    ansible.builtin.file:
+      path: /etc/resolv.conf
+      state: absent
+
+  - name: Restart network manager to regenerate resolv.conf
+    ansible.builtin.service:
+      name: NetworkManager
+      state: restarted
+      enabled: true
+    tags: NM
+    notify: Reboot
+
+  - name: Flush handlers
+    ansible.builtin.meta: flush_handlers
+
+  - name: Kubeadm pull
+    ansible.builtin.command: kubeadm config images pull
+    tags: kubeadm-pull
+    register: output
+    changed_when: output.rc != 0

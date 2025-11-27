@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stats
+  namespace: haproxy
+spec:
+  rules:
+  - host: stats.haproxy.k8s.teratan.lan
+    http:
+      paths:
+      - backend:
+          service:
+            name: haproxy-haproxy-ingress-stats
+            port:
+              number: 1936
+        path: /
+        pathType: Prefix

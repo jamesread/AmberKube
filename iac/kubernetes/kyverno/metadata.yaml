@@ -1,0 +1,3 @@
+description: Kyverno policy engine enforcing admission policies.
+homepage: https://kyverno.io/
+repository: https://github.com/kyverno/kyverno

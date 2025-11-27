@@ -1,0 +1,42 @@
+# Kubernetes Dashboard Helm Chart Values
+# https://github.com/kubernetes/dashboard
+
+# Enable ingress for external access
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  hosts:
+    - host: dashboard.k8s.teratan.lan
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: kubernetes-dashboard-tls
+      hosts:
+        - dashboard.k8s.teratan.lan
+
+# Enable metrics server
+metrics-server:
+  enabled: true
+
+# Resource limits
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+# Security settings
+extraArgs:
+  - --enable-skip-login
+  - --disable-settings-authorizer
+
+# Service configuration
+service:
+  type: ClusterIP
+  externalPort: 443

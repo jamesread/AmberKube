@@ -1,0 +1,3 @@
+description: MetalLB load balancer configuration for bare-metal services.
+homepage: https://metallb.universe.tf/
+repository: https://github.com/metallb/metallb

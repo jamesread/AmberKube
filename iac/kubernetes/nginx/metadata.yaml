@@ -1,0 +1,3 @@
+description: NGINX ingress controller configuration and values.
+homepage: https://kubernetes.github.io/ingress-nginx/
+repository: https://github.com/kubernetes/ingress-nginx

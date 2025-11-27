@@ -1,0 +1,3 @@
+description: Operator Lifecycle Manager installation manifests.
+homepage: https://olm.operatorframework.io/
+repository: https://github.com/operator-framework/operator-lifecycle-manager

@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keycloak
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: keycloak
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      volumes:
+        - name: keycloak-storage
+          persistentVolumeClaim:
+            claimName: keycloak-pvc
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:25.0.6
+        args:
+          - "start"
+        env:
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "admin"
+        - name: KC_PROXY
+          value: "edge"
+        - name: KC_DB
+          value: "mariadb"
+        - name: KC_DB_URL
+          value: "jdbc:mariadb://mysql:3306/keycloak"
+        - name: KC_DB_USER
+          value: "keycloak"
+        - name: KC_DB_PASSWORD
+          value: "keycloak"
+        - name: KC_HOSTNAME
+          value: "keycloak.k8s.teratan.lan"
+
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080

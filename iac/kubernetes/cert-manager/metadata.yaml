@@ -1,0 +1,3 @@
+description: Manages ACME/PKI certificates via cert-manager controllers.
+homepage: https://cert-manager.io/
+repository: https://github.com/cert-manager/cert-manager

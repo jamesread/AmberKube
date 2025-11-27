@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-dashboard
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./environments/teratan.lan/k8s-flux/infra/kube-dashboard
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: kube-dashboard
+  ignore: |
+    values.yaml

@@ -1,28 +1,25 @@
-# kubernetes-homelab
-A low hardware overhead, high-quality foundation for a Kubernetes homelab. Friendly forkable foundation. 
+# AmberKubee
 
-## Design goal: low hardware overhead 
+A simple, little Kubernetes distribution, design for low hardware overhead.
+
+**WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. It is an ongoing experiment from [James Read](https://jread.com), where he uses it for his various kubernetes clusters in a self hosted setup. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
+
+## Design goal: low hardware overhead
 
 * Target is a single x86 VM, 4Gb/RAM, but can be scaled.
-* Emphasis on using as few projects as is practical, with low resource usage. 
-* Targets full Fedora (not container distros like CoreOS or Talos), because it's easy to setup, manage snd debug. It's also readily available on many cloud providers. 
-* Helm, because of zero overhead post-install, even though it sucks for Day2. 
+* Emphasis on using as few projects as is practical, with low resource usage.
+* Targets full Fedora (not container distros like CoreOS or Talos), because it's easy to setup, manage snd debug. It's also readily available on many cloud providers.
+* Helm, because of zero overhead post-install, even though it sucks for Day2.
 
-## Design goal: high quality 
+## Design goal: high quality
 
 * Lots of static linting: precommit, yamlfix, etc.
-* Initial deploy via ansible. 
+* Initial deploy via ansible.
 * CI and aggressive testing via GitHub actions.
 * CD via Flux.
 * Use well established mature projects.
 * Well documented via Mkdocs.
-* Uses Semver, with the major version tracking Fedora. 
-
-## Design goal: friendly forkable foundation. 
-
-* Should be easy to fork, allowing more specialized homelabs to be built on top.
-* Should be friendly to forks, allowing them to merge updates easily, with low risk of conflicts.
-* This project should be a foundation for building more specialised environments - for security, or developers.
+* Uses Semver, with the major version tracking Fedora.
 
 ## Anti design goals
 
@@ -32,7 +29,7 @@ A low hardware overhead, high-quality foundation for a Kubernetes homelab. Frien
 
 ## This is a No-Nonsense Open Source project
 
-- All code in this project is Open Source (AGPL), and dependencies must use OSI approved Open Source licenses. 
+- All code in this project is Open Source (AGPL), and dependencies must use OSI approved Open Source licenses.
 - No company is paying for development, there is no paid-for support from the developers.
 - No separate core and premium version, no plus/pro version or paid-for extra features.
 - No SaaS service or "special cloud version".

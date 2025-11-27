@@ -1,0 +1,13 @@
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: kube-dashboard-values-yaml
+    files:
+      - values.yaml
+resources:
+  - kube-dashboard.yaml
+
+namespace: kube-dashboard

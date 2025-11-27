@@ -1,0 +1,4 @@
+kind: Kustomization
+resources:
+  - nfs.yaml
+namespace: nfs

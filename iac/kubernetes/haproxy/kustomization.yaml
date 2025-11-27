@@ -1,0 +1,16 @@
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: haproxy-values-yaml
+    files:
+      - values.yaml
+
+resources:
+  - haproxy.yaml
+  - ingress-stats.yaml
+  - ingress-metrics.yaml
+
+namespace: haproxy

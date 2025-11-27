@@ -1,0 +1,4 @@
+kind: Kustomization
+resources:
+  - promtail.yaml
+namespace: promtail
