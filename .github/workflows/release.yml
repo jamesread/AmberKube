@@ -29,6 +29,14 @@ jobs:
         run: npm ci
 
       - name: Run semantic-release
+        if: github.ref_type != 'tag'
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            - '@semantic-release/changelog'
+            - '@semantic-release/git'
+            - '@semantic-release/github'
+            - '@semantic-release/release-notes-generator'
+            - '@semantic-release/commit-analyzer'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release
