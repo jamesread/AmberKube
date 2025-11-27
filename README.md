@@ -9,13 +9,13 @@ A robust little Kubernetes distribution, designed for zero upstream changes, low
 
 You should probably not really use this, and use OpenShift instead :-)
 
-Documentation: jamesread.github.io/AmberKube
+* **Documentation**: https://jamesread.github.io/AmberKube
 
 ## Design goal: zero upstream changes
 
 * Relies on upstream projects, direct from upstream source.
 
-## Design goal: low hardware overhead
+## Design goal: low hardware requirementsd
 
 * Target is a single x86 VM, 4Gb/RAM, but can be scaled.
 * Emphasis on using as few projects as is practical, with low resource usage.
