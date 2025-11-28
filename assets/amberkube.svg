@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 240 240"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg24"
+   sodipodi:docname="amber-cube.svg"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview24"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="7.7958333"
+     inkscape:cx="110.05879"
+     inkscape:cy="114.35596"
+     inkscape:window-width="3840"
+     inkscape:window-height="2126"
+     inkscape:window-x="2160"
+     inkscape:window-y="2194"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg24" />
+  <title
+     id="title">Amber cube logo</title>
+  <desc
+     id="desc">A glowing orange amber cube with a small bug preserved inside, shown in 3D with hexagonal outline.</desc>
+  <defs
+     id="defs8">
+    <linearGradient
+       id="amberBody"
+       x1="0%"
+       y1="0%"
+       x2="100%"
+       y2="100%">
+      <stop
+         offset="0%"
+         stop-color="#ffb347"
+         id="stop1" />
+      <stop
+         offset="60%"
+         stop-color="#ff8c00"
+         id="stop2" />
+      <stop
+         offset="100%"
+         stop-color="#b34700"
+         id="stop3" />
+    </linearGradient>
+    <linearGradient
+       id="amberHighlight"
+       x1="0%"
+       y1="0%"
+       x2="0%"
+       y2="100%">
+      <stop
+         offset="0%"
+         stop-color="#ffe6b3"
+         stop-opacity="0.9"
+         id="stop4" />
+      <stop
+         offset="100%"
+         stop-color="#ffd27f"
+         stop-opacity="0.2"
+         id="stop5" />
+    </linearGradient>
+    <linearGradient
+       id="amberDepth"
+       x1="44.72136"
+       y1="17.888544"
+       x2="44.72136"
+       y2="196.77398"
+       gradientTransform="scale(0.89442719,1.118034)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0%"
+         stop-color="#ffb347"
+         stop-opacity="0.45"
+         id="stop6" />
+      <stop
+         offset="70%"
+         stop-color="#ff8c00"
+         stop-opacity="0.35"
+         id="stop7" />
+      <stop
+         offset="100%"
+         stop-color="#b34700"
+         stop-opacity="0.25"
+         id="stop8" />
+    </linearGradient>
+  </defs>
+  <!-- Hexagonal outline -->
+  <polygon
+     points="120,20 200,70 200,170 120,220 40,170 40,70"
+     fill="url(#amberBody)"
+     stroke="#7a2f00"
+     stroke-width="4"
+     stroke-linejoin="round"
+     id="polygon8" />
+  <!-- Facets -->
+  <polygon
+     points="120,20 200,70 120,120 40,70"
+     fill="url(#amberHighlight)"
+     opacity="0.75"
+     id="polygon9" />
+  <polygon
+     points="120,120 200,70 200,170 120,220"
+     fill="#d46a00"
+     opacity="0.5"
+     id="polygon10" />
+  <polygon
+     points="120,120 40,70 40,170 120,220"
+     fill="#ff9a1b"
+     opacity="0.35"
+     id="polygon11" />
+  <!-- Internal glow -->
+  <!-- Dragonfly silhouette -->
+  <g
+     transform="matrix(-0.42590552,0.70071713,-0.70071713,-0.42590552,80.279748,140.83531)"
+     id="g23">
+    <!-- Body -->
+    <rect
+       x="-3"
+       y="-22"
+       width="6"
+       height="40"
+       rx="2"
+       fill="#2a1200"
+       id="rect11" />
+    <circle
+       cx="0"
+       cy="-26"
+       r="6"
+       fill="#2a1200"
+       id="circle12" />
+    <circle
+       cx="-3"
+       cy="-28"
+       r="1.5"
+       fill="#ffcf91"
+       id="circle13" />
+    <ellipse
+       cx="-43.585308"
+       cy="-47.024616"
+       fill="#ffcf91"
+       id="circle13-6"
+       rx="3.1226618"
+       ry="2.0221217"
+       transform="matrix(0.9919123,0.12692512,-0.92117911,0.38913885,0,0)"
+       style="stroke-width:1.67523" />
+    <circle
+       cx="3"
+       cy="-28"
+       r="1.5"
+       fill="#ffcf91"
+       id="circle14" />
+    <!-- Wings -->
+    <!-- Legs -->
+    <path
+       d="M 1.3840452,-9.5362286 C -4.876616,-13.114515 -9.4168445,-20.820766 -13.957074,-28.527018"
+       stroke="#2a1200"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       id="path18" />
+    <path
+       d="m 0,12 c 4,4 8,12 12,20"
+       stroke="#2a1200"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       id="path19" />
+    <path
+       d="M 1.3840452,-9.5362286 C 7.0950238,-13.939038 10.535888,-22.194972 13.976752,-30.450907"
+       stroke="#2a1200"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       id="path21" />
+    <path
+       d="m 0,12 c -4,4 -8,12 -12,20"
+       stroke="#2a1200"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       id="path22" />
+  </g>
+  <!-- Immersion glaze -->
+  <!-- Sparkle -->
+  <polygon
+     points="120,120 40,70 40,170 120,220 "
+     fill="#ff9a1b"
+     opacity="0.35"
+     id="polygon11-5" />
+  <metadata
+     id="metadata24">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Amber cube logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
