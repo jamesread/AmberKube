@@ -3,11 +3,15 @@
   <h1>AmberKube</h1>
 </div>
 
-A robust little Kubernetes distribution, designed for zero upstream changes, low hardware requirements, and maintained with AI.
+The first layer of stuff needed to make Kubernetes useable in a self-hosted environment.
 
-> **WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. It is an ongoing experiment from [James Read](https://jread.com), where he uses it for his various kubernetes clusters in a self hosted setup. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
+* Low hardware requirements
+* Zero upstream changes
+* Maintained with AI & Bots
 
-You should probably not really use this, and use OpenShift instead :-)
+> **WARNING**: This project was started to understand **just how hard it is to truely maintain** your own Kubernetes-based platform. The answer so far is that __building is easy, maintaining it is hard__. It is an ongoing experiment from [James Read](https://jread.com). It is used for his various kubernetes clusters in a self hosted setup and ongoing learning. [Read more about James' self hosting here](https://blog.jread.com/posts/my-selfhosted-private-enterprise/).
+
+You are welcome to use anything from this project, but it isn't intended as a project aimed at the general public to consume. There are many, many offerings for Kubernetes platforms that are better maintained, like https://okd.io and https://openshift.com which are better choices.
 
 * **Documentation**: https://jamesread.github.io/AmberKube
 
