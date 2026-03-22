@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/jamesread/AmberKube/compare/v1.0.0...v1.0.1) (2026-03-22)
+
+### Bug Fixes
+
+* remove notification provider ([f151f81](https://github.com/jamesread/AmberKube/commit/f151f8104905dd196d81dd5434c33503b9c1b5b5))
+
 ## 1.0.0 (2025-11-27)
 
 ### Bug Fixes
