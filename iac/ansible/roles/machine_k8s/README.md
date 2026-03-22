@@ -5,10 +5,19 @@ Install a k8s node (could be a control/worker).
 This role does not have any variables.
 
 
-## Example usage in a playbook
+## Example usage
+
+From `iac/ansible` (see `hosts.yml` for `ansible_host`, `ansible_user`, and `ssh_authorized_key`):
+
+```bash
+ansible-playbook playbooks/kubemaster.yml
+```
+
+Or in your own playbook:
 
 ```yaml
-- hosts: [myserver]
-  roles
-    - roles: jamesread.soe.machine_k8s
+- hosts: kubemaster
+  become: true
+  roles:
+    - role: machine_k8s
 ```
