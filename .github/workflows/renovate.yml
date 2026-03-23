@@ -1,8 +1,7 @@
 ---
-# Self-hosted Renovate (weekly). Uses GITHUB_TOKEN (no PAT). Grant enough permissions so Renovate
-# can open PRs, manage the dependency dashboard issue, and edit workflows when bumping action pins.
-# Note: PRs opened by GITHUB_TOKEN do not trigger other workflows on their own (GitHub limitation).
-# https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+# Self-hosted Renovate (weekly). Uses a PAT from repo secret RENOVATE_TOKEN (create a fine-grained PAT
+# with Contents/Issues/PRs and Dependabot alerts read for this repo; add it under Settings → Secrets).
+# PRs opened with a PAT run as that user and can trigger other workflows (unlike GITHUB_TOKEN PRs).
 name: Renovate
 
 on:
@@ -34,7 +33,7 @@ jobs:
       - name: Run Renovate
         uses: renovatebot/github-action@v46.1.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RENOVATE_TOKEN }}
         env:
           LOG_LEVEL: info
           RENOVATE_AUTODISCOVER: true
