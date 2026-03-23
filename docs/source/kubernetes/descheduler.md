@@ -6,8 +6,9 @@
 - **Homepage:** [https://kubernetes-sigs.github.io/descheduler/](https://kubernetes-sigs.github.io/descheduler/)
 - **Repository:** [https://github.com/kubernetes-sigs/descheduler](https://github.com/kubernetes-sigs/descheduler)
 ## Deployment Type
-- HelmRelease (name: `descheduler`, namespace: `default`, chart: `descheduler`, source: `iac/kubernetes/descheduler/descheduler.yaml`)
+- HelmRelease (name: `descheduler`, namespace: `default`, chart: `descheduler`, source: `iac/kubernetes/descheduler/app/descheduler.yaml`)
 ## Files
-- `descheduler.yaml`
-- `kustomization.yaml`
+- `app/descheduler.yaml`
+- `app/kustomization.yaml`
+- `ks.yaml`
 - `metadata.yaml`

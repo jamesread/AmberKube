@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: jamesread
+  description: Install nginx and butane on kubemaster and serve a generated Butane config.bu
+  license: GPL-3.0-or-later
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+  galaxy_tags:
+    - nginx
+    - butane

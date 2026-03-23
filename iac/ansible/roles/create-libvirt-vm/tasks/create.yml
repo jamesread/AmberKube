@@ -1,0 +1,146 @@
+- debug:
+    msg: "using directory: {{ baseImageDirectory }}; VM disks under: {{ libvirt_storage_domain }}{% if vmCustomize == 'ignition' %}; Ignition mode, URL {{ kubeworker_ignition_url | default('(unset)') }}{% endif %}"
+
+- name: Ensure libvirt VM disk directory exists
+  ansible.builtin.file:
+    path: "{{ libvirt_storage_domain }}"
+    state: directory
+    mode: "0755"
+
+- name: Detect existing libvirt domain for this VM name
+  ansible.builtin.command:
+    argv:
+      - virsh
+      - dominfo
+      - "{{ item }}"
+  register: create_libvirt_vm_existing_domain
+  changed_when: false
+  failed_when: false
+
+- name: Skip create when this libvirt domain already exists
+  ansible.builtin.debug:
+    msg: "Libvirt domain '{{ item }}' already exists; skipping create for this instance."
+  when: create_libvirt_vm_existing_domain.rc == 0
+
+- name: Create VM when domain is absent
+  when: create_libvirt_vm_existing_domain.rc != 0
+  block:
+    - name: Stat base image on hypervisor
+      ansible.builtin.stat:
+        path: "{{ [baseImageDirectory, baseImageFilename] | path_join }}"
+      register: base_image_stat
+
+    - name: Require base image on hypervisor
+      ansible.builtin.assert:
+        that:
+          - base_image_stat.stat.exists | default(false)
+        fail_msg: "No qcow2 at {{ [baseImageDirectory, baseImageFilename] | path_join }} on the libvirt host (check baseImageDirectory / baseImageFilename)."
+
+    - when: vmCustomize == "cloud-init"
+      include_tasks: create-cloud-init.yml
+
+    - name: Require Ignition URL when vmCustomize is ignition
+      ansible.builtin.assert:
+        that:
+          - kubeworker_ignition_url | default('') | length > 0
+        fail_msg: "Set kubeworker_ignition_url (e.g. http://kubemaster/config.ign) when using Ignition."
+      when: vmCustomize == "ignition"
+      run_once: true
+
+    - name: Set Ignition local path (fw_cfg delivery)
+      ansible.builtin.set_fact:
+        ignition_local_path: "{{ [libvirt_storage_domain, vmTitle ~ '-ignition.ign'] | path_join }}"
+      when:
+        - vmCustomize == "ignition"
+        - kubeworker_ignition_method | default('fw_cfg') == "fw_cfg"
+
+    - name: Fetch Ignition for QEMU fw_cfg (Fedora CoreOS supported path on libvirt/x86_64)
+      ansible.builtin.get_url:
+        url: "{{ kubeworker_ignition_url }}"
+        dest: "{{ ignition_local_path }}"
+        mode: "0644"
+        validate_certs: "{{ kubeworker_ignition_validate_certs | default(true) | bool }}"
+        force: "{{ kubeworker_ignition_force_fetch | default(false) | bool }}"
+      when:
+        - vmCustomize == "ignition"
+        - kubeworker_ignition_method | default('fw_cfg') == "fw_cfg"
+      run_once: true
+
+    - name: creating raw disk
+      when: rawDisk|int > 0
+      command: qemu-img create "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" {{ rawDisk }}
+
+    # `ansible.builtin.copy` + remote_src can validate src on the controller when the role is delegated; `cp` runs only on the hypervisor.
+    - name: copy disk
+      when: rawDisk|int == 0
+      ansible.builtin.command:
+        argv:
+          - cp
+          - -f
+          - "{{ [baseImageDirectory, baseImageFilename] | path_join }}"
+          - "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}"
+      register: copy_disk_cmd
+      changed_when: copy_disk_cmd.rc == 0
+
+    - name: resize disk
+      command: qemu-img resize "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" "+{{ diskSize }}G"
+
+    #- name: create base disk
+    #  command: qemu-img create -f qcow2 -b "{{ [baseImageDirectory, baseImageFilename] | path_join }}" {{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}
+
+    # fw_cfg: official FCOS pattern for QEMU x86_64 (see Fedora CoreOS “getting started libvirt”). Ignition reads firmware, not ignition.config.url karg.
+    - name: virt-install (Ignition / Fedora CoreOS, fw_cfg)
+      when:
+        - vmCustomize == "ignition"
+        - kubeworker_ignition_method | default('fw_cfg') == "fw_cfg"
+      ansible.builtin.shell:
+        cmd: >-
+          virt-install -n {{ item }} --memory {{ ramMb }}
+          --disk path={{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }},format=qcow2
+          --import --noautoconsole --os-variant {{ libvirt_os_variant }}
+          --vcpus {{ vcpuCount }} --cpu host
+          --qemu-commandline={{ ('-fw_cfg name=opt/com.coreos/config,file=' ~ ignition_local_path) | quote }}
+          {{ extraVirtInstall | default('') }}
+        executable: /bin/bash
+
+    # Experimental: ignition.config.url via SMBIOS — often does not reach Ignition (“no config provided”); prefer fw_cfg.
+    - name: virt-install (Ignition / Fedora CoreOS, SMBIOS ignition.config.url)
+      when:
+        - vmCustomize == "ignition"
+        - kubeworker_ignition_method | default('fw_cfg') == "smbios"
+      vars:
+        fcos_kernel_cmdline_extra: "io.systemd.stub.kernel-cmdline-extra=ignition.config.url={{ kubeworker_ignition_url }}"
+        fcos_smbios_value: "{{ fcos_kernel_cmdline_extra | regex_replace(',', ',,') }}"
+      ansible.builtin.shell:
+        cmd: >-
+          virt-install -n {{ item }} --memory {{ ramMb }}
+          --disk path={{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }},format=qcow2
+          --import --noautoconsole --os-variant {{ libvirt_os_variant }}
+          --vcpus {{ vcpuCount }} --cpu host
+          --qemu-commandline={{ ('-smbios type=11,value=' ~ fcos_smbios_value) | quote }}
+          {{ extraVirtInstall | default('') }}
+        executable: /bin/bash
+
+    - name: virt-install (cloud-init)
+      when: vmCustomize == "cloud-init"
+      block:
+        - name: virt-install with cloud-init
+          command: virt-install -n {{item}} --memory "{{ ramMb }}" --disk "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" --disk "{{ [libvirt_storage_domain, item ~ '.iso'] | path_join }},device=cdrom" --import --noautoconsole --os-variant {{ libvirt_os_variant }} --vcpus "{{ vcpuCount }}" --cpu host {{ extraVirtInstall }}
+
+    - name: virt-customize + virt-install
+      when: vmCustomize == "virt-customize"
+      block:
+        - name: Set guest hostname in disk image
+          command: virt-customize -a "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" --hostname "{{ item }}" {{ extraVmCustomise | default('') }}
+
+        - name: sm register
+          command: virt-customize -a "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" --sm-credentials "{{ rh_username }}:password:{{ rh_password }}" --sm-register --sm-attach auto
+          when: rh_username is defined and rh_password is defined
+
+        - name: virt-install after virt-customize
+          command: virt-install -n {{item}} --memory "{{ ramMb }}" --disk "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" --import --noautoconsole --os-variant {{ libvirt_os_variant }} --vcpus "{{ vcpuCount }}" --cpu host {{ extraVirtInstall }}
+
+    - name: virt-install (customization skipped)
+      when: vmCustomize == "skip"
+      block:
+        - command: virt-install -n {{item}} --memory "{{ ramMb }}" --disk "{{ [libvirt_storage_domain, item ~ '.qcow2'] | path_join }}" --import --noautoconsole --os-variant {{ libvirt_os_variant }} --vcpus "{{ vcpuCount }}" --cpu host {{ extraVirtInstall }}

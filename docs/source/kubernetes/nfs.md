@@ -6,8 +6,9 @@
 - **Homepage:** [https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/)
 - **Repository:** [https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 ## Deployment Type
-- HelmRelease (name: `nfs`, namespace: `default`, chart: `nfs-subdir-external-provisioner`, source: `iac/kubernetes/nfs/nfs.yaml`)
+- HelmRelease (name: `nfs`, namespace: `default`, chart: `nfs-subdir-external-provisioner`, source: `iac/kubernetes/nfs/app/nfs.yaml`)
 ## Files
-- `kustomization.yaml`
+- `app/kustomization.yaml`
+- `app/nfs.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `nfs.yaml`

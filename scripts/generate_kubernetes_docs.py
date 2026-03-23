@@ -31,8 +31,11 @@ def list_files(component_dir: Path) -> list[str]:
 
 
 def locate_kustomization(component_dir: Path) -> Path | None:
-    """Find the kustomization file if it exists."""
+    """Find the kustomization file if it exists (prefers app/kustomization.yaml)."""
     candidates = [
+        component_dir / "app" / "kustomization.yaml",
+        component_dir / "app" / "kustomization.yml",
+        component_dir / "app" / "Kustomization",
         component_dir / "kustomization.yaml",
         component_dir / "kustomization.yml",
         component_dir / "Kustomization",

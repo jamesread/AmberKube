@@ -1,0 +1,38 @@
+# NoCloud seed for libvirt: cloud-localds builds a CIDATA-labeled image cloud-init reliably detects.
+# dsmode: local in meta-data (not cloud-localds --dsmode) avoids waiting for network; cloud-localds
+# rejects --dsmode when a meta-data file is supplied.
+- name: Generate NoCloud seed image for {{ item }}
+  block:
+    - name: Create temp directory for cloud-init seed files
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: nocloud
+      register: _nocloud_tmp
+
+    - name: Write meta-data for cloud-init (NoCloud)
+      ansible.builtin.template:
+        src: cloudinit.j2
+        dest: "{{ _nocloud_tmp.path }}/meta-data"
+        mode: "0644"
+
+    - name: Write user-data for cloud-init (NoCloud)
+      ansible.builtin.template:
+        src: user-data.j2
+        dest: "{{ _nocloud_tmp.path }}/user-data"
+        mode: "0644"
+
+    - name: Build NoCloud seed image with cloud-localds
+      ansible.builtin.command:
+        argv:
+          - cloud-localds
+          - "{{ [libvirt_storage_domain, item ~ '.iso'] | path_join }}"
+          - "{{ _nocloud_tmp.path }}/user-data"
+          - "{{ _nocloud_tmp.path }}/meta-data"
+      changed_when: true
+
+  always:
+    - name: Remove NoCloud temp directory
+      ansible.builtin.file:
+        path: "{{ _nocloud_tmp.path }}"
+        state: absent
+      when: _nocloud_tmp is defined and _nocloud_tmp.path | default('') | length > 0

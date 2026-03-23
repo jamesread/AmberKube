@@ -1,0 +1,20 @@
+server {
+    listen       80 default_server;
+    listen       [::]:80 default_server;
+    server_name  _;
+    root         {{ nginx_docroot }};
+    index        index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location = /{{ config_bu_filename }} {
+        default_type text/plain;
+    }
+
+    location = /{{ config_ign_filename }} {
+        default_type application/vnd.coreos.ignition+json;
+        add_header Cache-Control "no-store";
+    }
+}

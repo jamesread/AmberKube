@@ -1,0 +1,26 @@
+---
+# Directory where per-VM qcow2 and cloud-init ISO files are created (libvirt default pool path).
+libvirt_storage_domain: /var/lib/libvirt/images
+baseImageDirectory: "/jwrFs/Software/PC/OS/"
+baseImageFilename: "Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2"
+vmTitle: "untitled"
+nameFormat: "{{ vmTitle }}-%02x"
+count: 1
+ramMb: 4096
+vcpuCount: 2
+useCloudInit: no
+rawDisk: 0
+vmCustomize: cloud-init
+diskSize: 8
+extraVirtInstall: ""
+extraVmCustomise: ""
+libvirt_os_variant: fedora41
+# Optional; usually set in hosts.yml (all vars) for cloud-init user-data.
+ssh_authorized_key: ""
+# When vmCustomize is `ignition`: URL of Ignition JSON on the kubemaster (or anywhere reachable from the hypervisor for fw_cfg).
+kubeworker_ignition_url: ""
+# How Ignition is passed into the guest: `fw_cfg` (default; matches Fedora CoreOS libvirt docs, requires fetch to a local path on the hypervisor) or `smbios` (experimental: ignition.config.url via SMBIOS — often fails with “no config provided”).
+kubeworker_ignition_method: fw_cfg
+kubeworker_ignition_validate_certs: true
+# When true, get_url always re-downloads Ignition (e.g. after editing config.ign on the kubemaster).
+kubeworker_ignition_force_fetch: false

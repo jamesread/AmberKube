@@ -1,0 +1,15 @@
+---
+nginx_package: nginx
+# Fedora package providing the Butane CLI (`butane` / compile config.bu to Ignition locally on the kubemaster).
+butane_package: butane
+nginx_docroot: /var/www/html
+config_bu_filename: config.bu
+config_ign_filename: config.ign
+butane_variant: fcos
+butane_version: "1.5.0"
+# If empty, config.bu still contains a minimal valid Butane skeleton; set in inventory or -e
+butane_ssh_authorized_key: ""
+# If all three are non-empty, config.bu includes systemd kubeadm-join.service (oneshot). Usually set via hosts.yml all.vars.
+kubeadm_join_server: ""
+kubeadm_join_token: ""
+kubeadm_join_discovery_token_ca_cert_hash: ""

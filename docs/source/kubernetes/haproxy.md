@@ -6,11 +6,12 @@
 - **Homepage:** [https://www.haproxy.org/](https://www.haproxy.org/)
 - **Repository:** [https://github.com/haproxy/haproxy](https://github.com/haproxy/haproxy)
 ## Deployment Type
-- HelmRelease (name: `haproxy`, namespace: `default`, chart: `haproxy-ingress`, source: `iac/kubernetes/haproxy/haproxy.yaml`)
+- HelmRelease (name: `haproxy`, namespace: `default`, chart: `haproxy-ingress`, source: `iac/kubernetes/haproxy/app/haproxy.yaml`)
 ## Files
-- `haproxy.yaml`
-- `ingress-metrics.yaml`
-- `ingress-stats.yaml`
-- `kustomization.yaml`
+- `app/haproxy.yaml`
+- `app/ingress-metrics.yaml`
+- `app/ingress-stats.yaml`
+- `app/kustomization.yaml`
+- `app/values.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `values.yaml`

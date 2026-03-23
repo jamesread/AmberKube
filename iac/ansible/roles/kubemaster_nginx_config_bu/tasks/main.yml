@@ -1,0 +1,79 @@
+---
+- name: Install nginx and butane
+  ansible.builtin.package:
+    name:
+      - "{{ nginx_package }}"
+      - "{{ butane_package }}"
+    state: present
+
+- name: Ensure document root exists
+  ansible.builtin.file:
+    path: "{{ nginx_docroot }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Generate Butane config.bu
+  ansible.builtin.template:
+    src: config.bu.j2
+    dest: "{{ nginx_docroot }}/{{ config_bu_filename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  register: kubemaster_config_bu
+
+- name: Check whether Ignition output already exists
+  ansible.builtin.stat:
+    path: "{{ nginx_docroot }}/{{ config_ign_filename }}"
+  register: kubemaster_ign_stat
+
+- name: Compile Butane to Ignition on kubemaster
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/butane
+      - "{{ nginx_docroot }}/{{ config_bu_filename }}"
+      - "-o"
+      - "{{ nginx_docroot }}/{{ config_ign_filename }}"
+  when: kubemaster_config_bu is changed or not kubemaster_ign_stat.stat.exists
+  register: kubemaster_config_ign
+  changed_when: true
+
+- name: Set Ignition file permissions
+  ansible.builtin.file:
+    path: "{{ nginx_docroot }}/{{ config_ign_filename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: kubemaster_config_ign.changed | default(false)
+
+- name: Remove stock nginx default site if present (avoid duplicate listen)
+  ansible.builtin.file:
+    path: /etc/nginx/conf.d/default.conf
+    state: absent
+  register: kubemaster_rm_default_conf
+
+- name: Deploy nginx site for document root
+  ansible.builtin.template:
+    src: nginx-butane.conf.j2
+    dest: /etc/nginx/conf.d/00-butane.conf
+    owner: root
+    group: root
+    mode: "0644"
+  register: kubemaster_nginx_site
+
+- name: Enable and start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Validate nginx configuration
+  ansible.builtin.command: nginx -t
+  changed_when: false
+
+- name: Reload nginx to apply configuration
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded
+  when: kubemaster_config_bu is changed or kubemaster_nginx_site is changed or kubemaster_rm_default_conf is changed or (kubemaster_config_ign.changed | default(false))

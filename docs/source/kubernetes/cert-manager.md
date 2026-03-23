@@ -6,11 +6,12 @@
 - **Homepage:** [https://cert-manager.io/](https://cert-manager.io/)
 - **Repository:** [https://github.com/cert-manager/cert-manager](https://github.com/cert-manager/cert-manager)
 ## Deployment Type
-- HelmRelease (name: `cert-manager`, namespace: `default`, chart: `cert-manager`, source: `iac/kubernetes/cert-manager/cert-manager.yaml`)
+- HelmRelease (name: `cert-manager`, namespace: `default`, chart: `cert-manager`, source: `iac/kubernetes/cert-manager/app/cert-manager.yaml`)
 ## Files
-- `cert-manager.yaml`
-- `issuer.yaml`
-- `kustomization.yaml`
+- `app/cert-manager.yaml`
+- `app/issuer.yaml`
+- `app/kustomization.yaml`
+- `app/policy.yaml`
+- `app/values.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `policy.yaml`
-- `values.yaml`

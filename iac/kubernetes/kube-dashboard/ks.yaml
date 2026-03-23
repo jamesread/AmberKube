@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./environments/teratan.lan/k8s-flux/infra/kube-dashboard
+  path: ./iac/kubernetes/kube-dashboard/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -6,11 +6,12 @@
 - **Homepage:** [https://metallb.universe.tf/](https://metallb.universe.tf/)
 - **Repository:** [https://github.com/metallb/metallb](https://github.com/metallb/metallb)
 ## Deployment Type
-- HelmRelease (name: `metallb`, namespace: `default`, chart: `metallb@0.15.2`, source: `iac/kubernetes/metallb/metallb.yaml`)
+- HelmRelease (name: `metallb`, namespace: `default`, chart: `metallb@0.15.2`, source: `iac/kubernetes/metallb/app/metallb.yaml`)
 ## Files
-- `ipaddresses.yaml`
-- `kustomization.yaml`
-- `l2advertisments.yaml`
+- `app/ipaddresses.yaml`
+- `app/kustomization.yaml`
+- `app/l2advertisments.yaml`
+- `app/metallb.yaml`
+- `app/values.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `metallb.yaml`
-- `values.yaml`

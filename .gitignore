@@ -1,3 +1,8 @@
 **/.swo
 **/.swp
+*.swp
 node_modules/
+docs/.cache
+# Ansible Vault (local only — never commit encrypted secrets)
+iac/ansible/.vault_pass
+iac/ansible/group_vars/all/vault.yml

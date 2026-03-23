@@ -9,6 +9,7 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `daemonset.yaml`
-- `kustomization.yaml`
+- `app/daemonset.yaml`
+- `app/kustomization.yaml`
+- `ks.yaml`
 - `metadata.yaml`

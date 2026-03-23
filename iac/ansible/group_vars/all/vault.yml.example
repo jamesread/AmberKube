@@ -1,0 +1,20 @@
+---
+# Template for group_vars/all/vault.yml (NOT committed — copy and encrypt locally).
+#
+# 1. cp group_vars/all/vault.yml.example group_vars/all/vault.yml
+# 2. Edit vault.yml: replace demo values with your real public key and kubeadm join data.
+# 3. ansible-vault encrypt group_vars/all/vault.yml
+# 4. echo 'your-strong-passphrase' > .vault_pass && chmod 600 .vault_pass
+#
+# Or encrypt in one step from this file without leaving plaintext on disk:
+#   ansible-vault encrypt group_vars/all/vault.yml.example \
+#     --output group_vars/all/vault.yml
+#   (then ansible-vault edit group_vars/all/vault.yml to set real values)
+#
+# vault_ssh_authorized_key — one line, output of: cat ~/.ssh/id_ed25519.pub
+# vault_kubeadm_* — from kubeadm init / token create (see docs/installation)
+
+# Demo-only placeholders (replace before encrypting for real use)
+vault_ssh_authorized_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDEMO_REPLACE_WITH_your_id_ed25519_pub_line demo@amberkube.example"
+vault_kubeadm_join_token: "abcdef.0123456789abcdef"
+vault_kubeadm_join_discovery_token_ca_cert_hash: "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"

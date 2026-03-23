@@ -1,0 +1,36 @@
+---
+# Included by kubeworker-k8s-bootstrap.yml; runs once per host in group `kubeworkers`.
+- name: Wait for SSH
+  ansible.builtin.wait_for_connection:
+    delay: 15
+    timeout: 420
+
+- name: Normalize discovery token hash for kubeadm join
+  ansible.builtin.set_fact:
+    kubeadm_join_hash_for_cmd: "{{ kubeadm_join_discovery_token_ca_cert_hash if (kubeadm_join_discovery_token_ca_cert_hash | default('') | length > 0 and kubeadm_join_discovery_token_ca_cert_hash.startswith('sha256:')) else ('sha256:' ~ kubeadm_join_discovery_token_ca_cert_hash) }}"
+
+- name: Install Kubernetes stack on kubeworker
+  ansible.builtin.include_role:
+    name: machine_k8s
+
+- name: Wait after machine_k8s (reboot may occur)
+  ansible.builtin.wait_for_connection:
+    delay: 20
+    timeout: 600
+
+- name: Check if already joined
+  ansible.builtin.stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: kubeworker_kubelet_conf
+
+- name: Join cluster
+  ansible.builtin.command:
+    argv:
+      - kubeadm
+      - join
+      - "{{ kubeadm_join_server }}"
+      - --token
+      - "{{ kubeadm_join_token }}"
+      - --discovery-token-ca-cert-hash
+      - "{{ kubeadm_join_hash_for_cmd }}"
+  when: not kubeworker_kubelet_conf.stat.exists

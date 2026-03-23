@@ -1,0 +1,9 @@
+---
+# Prepare a clean Fedora VM as a Kubernetes control-plane node (packages, CRI-O, kubelet, kubeadm image pull).
+# Run from iac/ansible: ansible-playbook playbooks/kubemaster.yml
+# After this completes, run kubeadm init on the host (and install your CNI) — see project docs.
+- name: Prepare kubemaster node (machine_k8s)
+  hosts: kubemaster
+  become: true
+  roles:
+    - role: machine_k8s

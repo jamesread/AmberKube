@@ -1,0 +1,22 @@
+# Aggregates Flux Kustomization CRs only. Each workload reconciles independently via <dir>/ks.yaml → <dir>/app/.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - cert-manager/ks.yaml
+  - descheduler/ks.yaml
+  - flux-system/ks.yaml
+  - haproxy/ks.yaml
+  - istio-system/ks.yaml
+  - keycloak/ks.yaml
+  - knative-serving/ks.yaml
+  - kube-dashboard/ks.yaml
+  - kube-prom/ks.yaml
+  - kube-state-metrics/ks.yaml
+  - kubemetrics/ks.yaml
+  - kyverno/ks.yaml
+  - metallb/ks.yaml
+  - nfs/ks.yaml
+  - nginx/ks.yaml
+  - node-exporter/ks.yaml
+  - olm/ks.yaml
+  - promtail/ks.yaml

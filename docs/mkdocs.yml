@@ -1,8 +1,69 @@
 site_name: AmberKube Documentation
 docs_dir: source
 repo_url: https://github.com/jamesread/AmberKube/
+markdown_extensions:
+  - codehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+plugins:
+  - social:
+  - search:
+  - tags:
+
+nav:
+  - Home: index.md
+  - Installation:
+      - '1. Overview': installation/index.md
+      - '2. Infra layer':
+          - '2. Kubemaster':
+              - '2.1 Prepare node': installation/kubemaster.md
+              - '2.2 Kubeadm init (Flannel)': installation/kubeadm-init-flannel.md
+              - '2.3 Butane (nginx)': installation/butane-nginx.md
+          - '3. Kubeworkers':
+              - '3.1 Create kubeworker VMs': installation/kubeworkers.md
+              - '3.2 Kubeworker K8s bootstrap': installation/kubeworker-k8s-bootstrap.md
+      - '3. Platform layer': installation/platform-layer.md
+  - Ansible:
+      - Machine K8s: ansible/machine_k8s.md
+  - Kubernetes:
+      - Cert Manager: kubernetes/cert-manager.md
+      - Descheduler: kubernetes/descheduler.md
+      - Documentation: kubernetes/documentation.md
+      - Flux System: kubernetes/flux-system.md
+      - HAProxy: kubernetes/haproxy.md
+      - Infrastructure: kubernetes/infrastructure.md
+      - Istio System: kubernetes/istio-system.md
+      - Keycloak: kubernetes/keycloak.md
+      - Knative Serving: kubernetes/knative-serving.md
+      - Kube Dashboard: kubernetes/kube-dashboard.md
+      - Kube Prom: kubernetes/kube-prom.md
+      - Kube State Metrics: kubernetes/kube-state-metrics.md
+      - Kubernetes: kubernetes/kubernetes.md
+      - Kubemetrics: kubernetes/kubemetrics.md
+      - Kyverno: kubernetes/kyverno.md
+      - MetalLB: kubernetes/metallb.md
+      - NFS: kubernetes/nfs.md
+      - NGINX: kubernetes/nginx.md
+      - Node Exporter: kubernetes/node-exporter.md
+      - OLM: kubernetes/olm.md
+      - Promtail: kubernetes/promtail.md
 theme:
     name: material
     logo: assets/amberkube.svg
+    favicon: assets/amberkube.svg
+    features:
+      - search.suggest
+      - search.highlight
+      - search.share
+      - content.code.copy
+      - content.action.edit
     palette:
       primary: amber

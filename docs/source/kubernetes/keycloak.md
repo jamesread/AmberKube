@@ -9,8 +9,9 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `ingress.yaml`
-- `keycloak.yaml`
-- `kustomization.yaml`
+- `app/ingress.yaml`
+- `app/keycloak.yaml`
+- `app/kustomization.yaml`
+- `app/pvc.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `pvc.yaml`

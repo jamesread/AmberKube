@@ -9,7 +9,8 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `ingress.yaml`
-- `kustomization.yaml`
+- `app/gotk-components.yaml`
+- `app/ingress.yaml`
+- `app/kustomization.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `notification-provider.yaml`

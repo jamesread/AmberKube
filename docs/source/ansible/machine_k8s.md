@@ -7,6 +7,7 @@
 - Disable SELinux _(ansible.posix.selinux)_
 - Flush Handlers _(ansible.builtin.meta)_
 - Check if crio is installed _(ansible.builtin.stat)_
+- Install SSH authorized key from inventory (`ssh_authorized_key`, typically from ansible-vault via `group_vars/all/vault.yml`) _(ansible.posix.authorized_key)_
 - Install Kubernetes if it isn't already
 - Install Kubernetes packages _(ansible.builtin.package)_
 - Remove unwanted packages _(ansible.builtin.package)_

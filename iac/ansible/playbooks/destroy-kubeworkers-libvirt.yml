@@ -1,0 +1,72 @@
+---
+# Destroy every libvirt domain whose name begins with "kubeworker" on the hypervisor,
+# and remove all storage attached to those domains (virsh undefine --remove-all-storage).
+# No other domains are touched.
+#
+# Optional: remove the shared Ignition file left on disk when using ignition + fw_cfg
+# (kubeworker-ignition.ign is not always tied to domain XML as a volume).
+#
+# Run from iac/ansible:
+#   ansible-playbook playbooks/destroy-kubeworkers-libvirt.yml
+#   ansible-playbook playbooks/destroy-kubeworkers-libvirt.yml -e kubeworker_destroy_remove_ignition_file=false
+#
+- name: Destroy kubeworker libvirt VMs and their storage
+  become: true
+  hosts: hypervisor
+  gather_facts: false
+  vars:
+    kubeworker_destroy_name_prefix: kubeworker
+    _destroy_storage_dir: "{{ kubeworker_storage_domain | default('/var/lib/libvirt/images') }}"
+    kubeworker_destroy_remove_ignition_file: true
+
+  pre_tasks:
+    - name: Require inventory group hypervisor
+      ansible.builtin.assert:
+        that:
+          - "'hypervisor' in groups"
+          - groups['hypervisor'] | length > 0
+        fail_msg: >
+          Define inventory group `hypervisor` in hosts.yml with at least one host (the libvirt machine).
+
+  tasks:
+    - name: List all libvirt domain names
+      ansible.builtin.command:
+        argv: [virsh, list, --all, --name]
+      register: _virsh_list_all
+      changed_when: false
+
+    - name: Select only domains whose names start with the kubeworker prefix
+      ansible.builtin.set_fact:
+        _kubeworker_domains: >-
+          {{
+            _virsh_list_all.stdout_lines
+            | map('trim')
+            | reject('equalto', '')
+            | select('match', '^' ~ (kubeworker_destroy_name_prefix | regex_escape))
+            | list
+          }}
+
+    - name: Show domains that will be destroyed
+      ansible.builtin.debug:
+        msg: "Will destroy libvirt domains: {{ _kubeworker_domains | default([]) }} (no other domains are modified)."
+
+    - name: Stop kubeworker domain if it is running
+      ansible.builtin.shell: virsh destroy "{{ item }}" || true
+      args:
+        executable: /bin/bash
+      loop: "{{ _kubeworker_domains }}"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Undefine kubeworker domain and delete its storage volumes
+      ansible.builtin.command:
+        argv: [virsh, undefine, "{{ item }}", --remove-all-storage]
+      loop: "{{ _kubeworker_domains }}"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Remove shared Ignition file on hypervisor (fw_cfg path from create-libvirt-vm)
+      ansible.builtin.file:
+        path: "{{ [_destroy_storage_dir | trim('/') , kubeworker_destroy_name_prefix ~ '-ignition.ign'] | path_join }}"
+        state: absent
+      when: kubeworker_destroy_remove_ignition_file | bool

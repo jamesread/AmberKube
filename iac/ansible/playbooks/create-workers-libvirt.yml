@@ -1,0 +1,51 @@
+---
+# Create kubeworker VMs on the libvirt hypervisor using create-libvirt-vm.
+# Default base image is Fedora-Server-Guest-Generic-43-1.6.x86_64.qcow2 (see role defaults).
+# customize_type (hosts.yml): virt-customize | cloud-init | ignition — default virt-customize when unset.
+# Ignition: set kubeworker_ignition_url. Kubernetes on workers is Step 3.2 (kubeworker-k8s-bootstrap.yml).
+# Run from iac/ansible (uses hosts.yml; become/root — ansible.cfg prompts for sudo password by default):
+#   ansible-playbook playbooks/create-workers-libvirt.yml
+# Override image path, disk pool, or count (see hosts.yml), for example:
+#   ansible-playbook playbooks/create-workers-libvirt.yml -e baseImageDirectory=/var/lib/libvirt/images -e kubeworker_count=2
+#   ansible-playbook ... -e kubeworker_storage_domain=/data/libvirt/images
+#   ansible-playbook ... -e count=2   # extra var `count` still overrides the role directly if set
+#
+# Runs on inventory group `hypervisor` (see hosts.yml `children:`).
+- name: Create kubeworker libvirt VMs
+  become: true
+  hosts: hypervisor
+  gather_facts: false
+  vars:
+    vmTitle: kubeworker
+    count: "{{ kubeworker_count | default(3) | int }}"
+    libvirt_storage_domain: "{{ kubeworker_storage_domain | default('/var/lib/libvirt/images') }}"
+    ramMb: "{{ kubeworker_ram_mb | default(4192) | int }}"
+    diskSize: 8
+    vmCustomize: "{{ customize_type | default('virt-customize') }}"
+    extraVirtInstall: "--network bridge=br-teratan"
+  pre_tasks:
+    - name: Require inventory group hypervisor
+      ansible.builtin.assert:
+        that:
+          - "'hypervisor' in groups"
+          - groups['hypervisor'] | length > 0
+        fail_msg: >
+          Define inventory group `hypervisor` under `children` in hosts.yml with at least one host (SSH to the libvirt machine, or localhost with ansible_connection: local for libvirt on this host).
+
+    - name: Require valid customize_type
+      ansible.builtin.assert:
+        that:
+          - customize_type | default('virt-customize') in ['virt-customize', 'cloud-init', 'ignition']
+        fail_msg: "customize_type must be virt-customize, cloud-init, or ignition (default virt-customize)."
+
+    - name: Require Ignition URL when customize_type is ignition
+      ansible.builtin.assert:
+        that:
+          - kubeworker_ignition_url | default('') | length > 0
+        fail_msg: "Set kubeworker_ignition_url when customize_type is ignition."
+      when: customize_type | default('virt-customize') == 'ignition'
+
+  tasks:
+    - name: Run create-libvirt-vm on the hypervisor host
+      ansible.builtin.include_role:
+        name: create-libvirt-vm

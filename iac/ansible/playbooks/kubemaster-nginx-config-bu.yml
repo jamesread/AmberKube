@@ -1,0 +1,12 @@
+---
+# Install nginx + butane on the kubemaster; generate /var/www/html/config.bu and compile to /var/www/html/config.ign for HTTP fetch.
+# Run from iac/ansible:
+#   ansible-playbook playbooks/kubemaster-nginx-config-bu.yml
+# Optional: -e butane_ssh_authorized_key="ssh-ed25519 AAAA... comment"
+# Optional join (embeds kubeadm-join.service in config.bu): -e kubeadm_join_server=IP:6443 -e kubeadm_join_token=... -e kubeadm_join_discovery_token_ca_cert_hash=sha256:...
+- name: Nginx and config.bu on kubemaster
+  hosts: kubemaster
+  become: true
+  gather_facts: true
+  roles:
+    - role: kubemaster_nginx_config_bu

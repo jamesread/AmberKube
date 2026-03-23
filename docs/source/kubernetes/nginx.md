@@ -6,9 +6,10 @@
 - **Homepage:** [https://kubernetes.github.io/ingress-nginx/](https://kubernetes.github.io/ingress-nginx/)
 - **Repository:** [https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx)
 ## Deployment Type
-- HelmRelease (name: `ingress-nginx`, namespace: `default`, chart: `ingress-nginx@4.13.2`, source: `iac/kubernetes/nginx/nginx.yaml`)
+- HelmRelease (name: `ingress-nginx`, namespace: `default`, chart: `ingress-nginx@4.13.2`, source: `iac/kubernetes/nginx/app/nginx.yaml`)
 ## Files
-- `kustomization.yaml`
+- `app/kustomization.yaml`
+- `app/nginx.yaml`
+- `app/values.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `nginx.yaml`
-- `values.yaml`

@@ -1,0 +1,5 @@
+---
+# Non-secret defaults and mappings. Secrets live in vault.yml (ansible-vault).
+ssh_authorized_key: "{{ vault_ssh_authorized_key }}"
+kubeadm_join_token: "{{ vault_kubeadm_join_token }}"
+kubeadm_join_discovery_token_ca_cert_hash: "{{ vault_kubeadm_join_discovery_token_ca_cert_hash }}"

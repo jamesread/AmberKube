@@ -9,11 +9,12 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `cluster-role-binding.yaml`
-- `cluster-role.yaml`
-- `deployment.yaml`
-- `ingress.yaml`
-- `kustomization.yaml`
+- `app/cluster-role-binding.yaml`
+- `app/cluster-role.yaml`
+- `app/deployment.yaml`
+- `app/ingress.yaml`
+- `app/kustomization.yaml`
+- `app/service-account.yaml`
+- `app/service.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `service-account.yaml`
-- `service.yaml`

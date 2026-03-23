@@ -9,8 +9,9 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `crds.yaml`
-- `install.sh`
-- `kustomization.yaml`
+- `app/crds.yaml`
+- `app/install.sh`
+- `app/kustomization.yaml`
+- `app/olm.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `olm.yaml`

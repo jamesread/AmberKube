@@ -1,0 +1,18 @@
+#cloud-config
+users:
+  - name: root
+    shell: /bin/bash
+{% if ssh_authorized_key | default('') | length > 0 %}
+    ssh-authorized-keys:
+      - "{{ ssh_authorized_key }}"
+{% endif %}
+chpasswd:
+  list: |
+    root:password
+  expire: False
+ssh_pwauth: True
+disable_root: False
+runcmd:
+  - echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+  - echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+  - service sshd restart

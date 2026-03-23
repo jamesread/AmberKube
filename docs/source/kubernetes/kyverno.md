@@ -6,9 +6,10 @@
 - **Homepage:** [https://kyverno.io/](https://kyverno.io/)
 - **Repository:** [https://github.com/kyverno/kyverno](https://github.com/kyverno/kyverno)
 ## Deployment Type
-- HelmRelease (name: `kyverno`, namespace: `default`, chart: `kyverno`, source: `iac/kubernetes/kyverno/kyverno.yaml`)
+- HelmRelease (name: `kyverno`, namespace: `default`, chart: `kyverno`, source: `iac/kubernetes/kyverno/app/kyverno.yaml`)
 ## Files
-- `kustomization.yaml`
-- `kyverno.yaml`
+- `app/kustomization.yaml`
+- `app/kyverno.yaml`
+- `app/values.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `values.yaml`

@@ -9,11 +9,12 @@
 - Kubernetes manifest (no HelmRelease resources detected).
 
 ## Files
-- `istio.yaml`
-- `knative-istio.yaml`
-- `kustomization.yaml`
+- `app/istio.yaml`
+- `app/knative-istio.yaml`
+- `app/kustomization.yaml`
+- `app/net-istio.yaml`
+- `app/old/kustomization.yaml`
+- `app/serving-core.yaml`
+- `app/serving-crds.yaml`
+- `ks.yaml`
 - `metadata.yaml`
-- `net-istio.yaml`
-- `old/kustomization.yaml`
-- `serving-core.yaml`
-- `serving-crds.yaml`

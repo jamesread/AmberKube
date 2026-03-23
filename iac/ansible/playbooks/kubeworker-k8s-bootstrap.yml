@@ -1,0 +1,37 @@
+---
+# Step 3.2 — Install machine_k8s and kubeadm join on hosts in inventory group `kubeworkers`.
+# Prerequisite: Step 3.1 (create-workers-libvirt.yml); each host in `kubeworkers` must be SSH-reachable (set ansible_host if the name does not resolve).
+# Run from iac/ansible:
+#   ansible-playbook playbooks/kubeworker-k8s-bootstrap.yml
+- name: Kubeworker Kubernetes bootstrap
+  hosts: kubeworkers
+  become: true
+  gather_facts: false
+  serial: 1
+  vars:
+    _kubeadm_count_expected: "{{ kubeworker_count | default(3) | int }}"
+  pre_tasks:
+    - name: Require kubeworkers group
+      ansible.builtin.assert:
+        that:
+          - "'kubeworkers' in groups"
+          - groups['kubeworkers'] | length > 0
+        fail_msg: "Define inventory group `kubeworkers` with at least one host (see hosts.yml)."
+
+    - name: Require host count matches kubeworker_count
+      ansible.builtin.assert:
+        that:
+          - groups['kubeworkers'] | length == (_kubeadm_count_expected | int)
+        fail_msg: "Group `kubeworkers` must have {{ _kubeadm_count_expected }} host(s) to match kubeworker_count."
+
+    - name: Require kubeadm join parameters
+      ansible.builtin.assert:
+        that:
+          - kubeadm_join_server | default('') | length > 0
+          - kubeadm_join_token | default('') | length > 0
+          - kubeadm_join_discovery_token_ca_cert_hash | default('') | length > 0
+        fail_msg: "Set kubeadm_join_server, kubeadm_join_token, and kubeadm_join_discovery_token_ca_cert_hash in hosts.yml."
+
+  tasks:
+    - name: Run machine_k8s and kubeadm join on each kubeworker
+      ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/kubeworker-bootstrap.yml"

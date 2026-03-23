@@ -1,4 +1,25 @@
 ---
+  # Fedora + become + Python 3.14 can append extra stdout after module JSON (noisy
+  # "Module invocation had junk after the JSON data"; ansible/ansible#86122). Use Python 3.13
+  # for subsequent modules when available. raw + dnf avoids invoking a Python module before pin.
+  - name: Ensure python3.13 is installed for Ansible remote (optional on older Fedora)
+    ansible.builtin.raw: rpm -q python3.13 >/dev/null 2>&1 || dnf install -y python3.13
+    changed_when: false
+    failed_when: false
+
+  - name: Choose Ansible target Python
+    ansible.builtin.raw: test -x /usr/bin/python3.13 && printf '%s\n' /usr/bin/python3.13 || printf '%s\n' /usr/bin/python3
+    register: machine_k8s_ansible_python
+    changed_when: false
+
+  - name: Pin ansible_python_interpreter for this host
+    ansible.builtin.set_fact:
+      # raw stdout may include CRLF or terminal OSC noise; extract a single clean path.
+      ansible_python_interpreter: >-
+        {{ machine_k8s_ansible_python.stdout
+           | regex_search('/usr/bin/python3(?:\\.13)?')
+           | default('/usr/bin/python3', true) }}
+
   - name: Disable SELinux
     ansible.posix.selinux:
       state: disabled
