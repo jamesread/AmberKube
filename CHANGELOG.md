@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/jamesread/AmberKube/compare/v1.0.1...v1.1.0) (2026-03-23)
+
+### Features
+
+* **iac:** add ansible automation and k8s layout ([fa37505](https://github.com/jamesread/AmberKube/commit/fa375050620e53304a3df71a5c91c4ddc251c761))
+
 ## [1.0.1](https://github.com/jamesread/AmberKube/compare/v1.0.0...v1.0.1) (2026-03-22)
 
 ### Bug Fixes
