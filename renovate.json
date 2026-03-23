@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "branchPrefix": "renovate/",
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5
+}
