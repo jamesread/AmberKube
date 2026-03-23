@@ -11,5 +11,3 @@ spec:
     kind: GitRepository
     name: flux-system
   targetNamespace: kube-dashboard
-  ignore: |
-    values.yaml
