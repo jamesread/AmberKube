@@ -1,0 +1,1427 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../butane-nginx/">
+      
+      
+        <link rel="next" href="../kubeworker-k8s-bootstrap/">
+      
+      
+      <link rel="icon" href="../../assets/amberkube.svg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>3.1 Create kubeworker VMs - AmberKube Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="3.1 Create kubeworker VMs - AmberKube Documentation" >
+      
+        <meta  property="og:description"  content="None" >
+      
+        <meta  property="og:image"  content="./assets/images/social/installation/kubeworkers.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="None" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="3.1 Create kubeworker VMs - AmberKube Documentation" >
+      
+        <meta  name="twitter:description"  content="None" >
+      
+        <meta  name="twitter:image"  content="./assets/images/social/installation/kubeworkers.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#create-kubeworker-vms-libvirt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AmberKube Documentation" class="md-header__button md-logo" aria-label="AmberKube Documentation" data-md-component="logo">
+      
+  <img src="../../assets/amberkube.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AmberKube Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.1 Create kubeworker VMs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jamesread/AmberKube/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AmberKube Documentation" class="md-nav__button md-logo" aria-label="AmberKube Documentation" data-md-component="logo">
+      
+  <img src="../../assets/amberkube.svg" alt="logo">
+
+    </a>
+    AmberKube Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jamesread/AmberKube/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2. Infra layer
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            2. Infra layer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2. Kubemaster
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            2. Kubemaster
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubemaster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Prepare node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm-init-flannel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Kubeadm init (Flannel)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../butane-nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Butane (nginx)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3. Kubeworkers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            3. Kubeworkers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3.1 Create kubeworker VMs
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Create kubeworker VMs
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hypervisor-hostsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hypervisor (hosts.yml)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-playbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the playbook
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overrides
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      What happens next
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeworker-k8s-bootstrap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Kubeworker K8s bootstrap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Platform layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Ansible
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ansible
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/machine_k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine K8s
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Kubernetes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/cert-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cert Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/descheduler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Descheduler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/flux-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flux System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/haproxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HAProxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/infrastructure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infrastructure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/istio-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Istio System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/keycloak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Keycloak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/knative-serving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Knative Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kube-dashboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kube Dashboard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kube-prom/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kube Prom
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kube-state-metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kube State Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubernetes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kubemetrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubemetrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/kyverno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kyverno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/metallb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MetalLB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/nfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NGINX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/node-exporter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Exporter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/olm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/promtail/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Promtail
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hypervisor-hostsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hypervisor (hosts.yml)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-playbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the playbook
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overrides
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      What happens next
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/jamesread/AmberKube/edit/master/docs/installation/kubeworkers.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="create-kubeworker-vms-libvirt">Create kubeworker VMs (libvirt)<a class="headerlink" href="#create-kubeworker-vms-libvirt" title="Permanent link">&para;</a></h1>
+<p><strong>Step 3.1</strong> — Provision Kubernetes <strong>worker</strong> VMs (count from <strong><code>kubeworker_count</code></strong> in <strong><code>hosts.yml</code></strong>, default <strong>three</strong>) on a <strong>libvirt hypervisor</strong> using <strong><code>iac/ansible/playbooks/create-workers-libvirt.yml</code></strong> and the <strong><code>create-libvirt-vm</code></strong> role. The default disk image is <strong><code>Fedora-Server-Guest-Generic-43-1.6.x86_64.qcow2</code></strong> (see <code>iac/ansible/roles/create-libvirt-vm/defaults/main.yml</code>); override the directory or filename if your image lives elsewhere.</p>
+<p>Set <strong><code>customize_type</code></strong> in <strong><code>all.vars</code></strong> to <strong><code>virt-customize</code></strong> (default when unset), <strong><code>cloud-init</code></strong>, or <strong><code>ignition</code></strong>. <strong><code>virt-customize</code></strong> runs <strong><code>virt-customize</code></strong> only to set <strong>hostname</strong> on each disk image (plus optional <strong><code>extraVmCustomise</code></strong> / RHEL <strong><code>sm register</code></strong> in the role), then <strong><code>virt-install</code></strong>. <strong><code>ignition</code></strong> is intended for <strong>Fedora CoreOS</strong> with <strong><code>kubeworker_ignition_url</code></strong> (for example <strong><code>http://$KUBEMASTER_IP/config.ign</code></strong> after <a href="../butane-nginx/">Step 2.3 — Butane (nginx)</a>). The role <strong><code>get_url</code></strong> downloads <strong><code>config.ign</code></strong> onto the hypervisor and <strong><code>virt-install</code></strong> passes it with QEMU <strong><code>fw_cfg</code></strong>. Optional <strong><code>kubeworker_ignition_method: smbios</code></strong> is experimental. <strong><code>cloud-init</code></strong> uses a nocloud ISO (typical for Fedora cloud images). <strong>Kubernetes on workers</strong> is <strong><a href="../kubeworker-k8s-bootstrap/">Step 3.2 — Kubeworker K8s bootstrap</a></strong> (inventory group <strong><code>kubeworkers</code></strong>, <strong><code>machine_k8s</code></strong>, <strong><code>kubeadm join</code></strong>), not this playbook.</p>
+<h2 id="hypervisor-hostsyml">Hypervisor (<code>hosts.yml</code>)<a class="headerlink" href="#hypervisor-hostsyml" title="Permanent link">&para;</a></h2>
+<p>Under <strong><code>children</code></strong>, define a group named <strong><code>hypervisor</code></strong> whose hosts are the machine(s) where <strong>libvirt</strong> runs (and where the base <strong>qcow2</strong> lives). The playbook <strong><code>hosts:</code></strong> that group. Use <strong><code>ansible_host</code></strong> / <strong><code>ansible_user</code></strong> for SSH to a remote box, or put <strong><code>localhost</code></strong> in <strong><code>hypervisor</code></strong> with <strong><code>ansible_connection: local</code></strong> if libvirt runs on the same host you run Ansible from.</p>
+<p>Set <strong><code>kubeworker_count</code></strong> in <strong><code>all.vars</code></strong> to the number of worker VMs to create (default <strong>3</strong>). The play maps this to the <strong><code>create-libvirt-vm</code></strong> role’s <strong><code>count</code></strong>.</p>
+<p>Set <strong><code>kubeworker_ram_mb</code></strong> in <strong><code>all.vars</code></strong> to RAM per worker in <strong>MiB</strong> (default <strong>4192</strong>). The play passes this as <strong><code>ramMb</code></strong> to <strong><code>virt-install</code></strong> (<strong><code>--memory</code></strong>).</p>
+<p>Set <strong><code>kubeworker_storage_domain</code></strong> in <strong><code>all.vars</code></strong> to the <strong>directory</strong> where per-VM <strong><code>.qcow2</code></strong> disks (and cloud-init <strong><code>.iso</code></strong> files, if used) are stored (your libvirt storage pool path, default <strong><code>/var/lib/libvirt/images</code></strong>). The playbook passes this as <strong><code>libvirt_storage_domain</code></strong> to the <strong><code>create-libvirt-vm</code></strong> role.</p>
+<p>Set <strong><code>kubeworker_ignition_url</code></strong> when <strong><code>customize_type</code></strong> is <strong><code>ignition</code></strong>. With <strong><code>fw_cfg</code></strong> (default), the <strong>hypervisor</strong> must reach this URL when Ansible runs <strong><code>get_url</code></strong>. Optional <strong><code>kubeworker_ignition_validate_certs</code></strong> (default <strong>true</strong>) applies to that download when using <strong>https://</strong>.</p>
+<p>Define inventory group <strong><code>kubeworkers</code></strong> under <strong><code>children</code></strong> when you plan <strong><a href="../kubeworker-k8s-bootstrap/">Step 3.2</a></strong> — <strong>one host per worker</strong> (count must match <strong><code>kubeworker_count</code></strong>), with <strong><code>ansible_host</code></strong> as needed. Step 3.1 does <strong>not</strong> use <strong><code>kubeworkers</code></strong>; only <strong><code>kubeworker-k8s-bootstrap.yml</code></strong> does.</p>
+<p>The playbook <strong><code>hosts:</code></strong> the <strong><code>hypervisor</code></strong> inventory group so <strong><code>stat</code></strong>, <strong><code>cp</code></strong>, <strong><code>qemu-img</code></strong>, and <strong><code>virt-install</code></strong> run on the libvirt machine.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>libvirt</strong> / <strong>KVM</strong> available and usable on the hypervisor (e.g. membership in <strong><code>libvirt</code></strong> where applicable).</li>
+<li>Packages the role can install or that you already have: <strong><code>virt-install</code></strong>, <strong><code>qemu-img</code></strong>, <strong><code>genisoimage</code></strong>, <strong><code>libguestfs-tools</code></strong> (see the role tasks under <code>iac/ansible/roles/create-libvirt-vm/</code>).</li>
+<li>The <strong>qcow2</strong> image file present under <strong><code>baseImageDirectory</code></strong> (default in the role: <code>/jwrFs/Software/PC/OS/</code>) with the expected <strong><code>baseImageFilename</code></strong>, or pass a different path when you run the playbook (see below).</li>
+<li><strong><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">Ansible</a></strong> on the control host, with SSH or local access to the <strong><code>hypervisor</code></strong> group.</li>
+<li>With <strong><code>kubeworker_ignition_method: fw_cfg</code></strong> (default), the hypervisor downloads <strong><code>config.ign</code></strong> for <strong><code>virt-install</code></strong>; TLS for that download is controlled by <strong><code>kubeworker_ignition_validate_certs</code></strong>. With <strong><code>smbios</code></strong>, the guest is expected to fetch via <strong><code>ignition.config.url</code></strong> (less reliable here).</li>
+</ul>
+<h2 id="run-the-playbook">Run the playbook<a class="headerlink" href="#run-the-playbook" title="Permanent link">&para;</a></h2>
+<p>The play uses <strong><code>become: true</code></strong> (root) so <strong><code>dnf</code></strong>, <strong><code>virt-install</code></strong>, and paths under the libvirt image directory can be managed. <strong><code>iac/ansible/ansible.cfg</code></strong> sets <strong><code>become_ask_pass = True</code></strong>, so Ansible <strong>prompts for your sudo password</strong> when needed (you can still pass <strong><code>--ask-become-pass</code></strong> / <strong><code>-K</code></strong> explicitly, or configure <strong>passwordless sudo</strong> for your user on the hypervisor). For non-interactive runs, set <strong><code>ANSIBLE_BECOME_ASK_PASS=false</code></strong> and supply credentials another way (for example <strong><code>ansible_become_password</code></strong> in the vault).</p>
+<p>From <strong><code>iac/ansible</code></strong>, the default <strong><code>hosts.yml</code></strong> is loaded (including <strong><code>all.vars</code></strong> such as <strong><code>customize_type</code></strong>, <strong><code>kubeworker_count</code></strong>, <strong><code>kubeworker_ram_mb</code></strong>, <strong><code>kubeworker_storage_domain</code></strong>, <strong><code>kubeworker_ignition_url</code></strong>, the <strong><code>hypervisor</code></strong> group, and the <strong><code>kubeworkers</code></strong> group for Step 3.2). <strong>Secrets</strong> (<strong><code>ssh_authorized_key</code></strong>, <strong><code>kubeadm_join_token</code></strong>, <strong><code>kubeadm_join_discovery_token_ca_cert_hash</code></strong>) live in <strong><code>group_vars/all/vault.yml</code></strong> (ansible-vault); see <strong><code>iac/ansible/README.md</code></strong>. <strong><code>kubeadm_join_*</code></strong> are used by <strong><code>kubeworker-k8s-bootstrap.yml</code></strong>, not Step 3.1.</p>
+<div class="language-bash highlight"><span class="filename">Ansible control host</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>iac/ansible
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml
+</span></code></pre></div>
+<p>The playbook sets <strong><code>vmCustomize</code></strong> from <strong><code>customize_type</code></strong> (default <strong><code>virt-customize</code></strong>). It sets <strong><code>count</code></strong> from <strong><code>kubeworker_count</code></strong> (default <strong>3</strong> in <strong><code>hosts.yml</code></strong>), <strong><code>ramMb</code></strong> from <strong><code>kubeworker_ram_mb</code></strong> (default <strong>4192</strong>), <strong><code>libvirt_storage_domain</code></strong> from <strong><code>kubeworker_storage_domain</code></strong>, <strong><code>vmTitle: kubeworker</code></strong>, <strong><code>diskSize: 8</code></strong>, and attaches VMs to the bridge <strong><code>br-teratan</code></strong> (via <strong><code>extraVirtInstall</code></strong>). VM names follow the role’s naming pattern (e.g. <code>kubeworker-01</code>, …).</p>
+<h2 id="overrides">Overrides<a class="headerlink" href="#overrides" title="Permanent link">&para;</a></h2>
+<p>Examples (from <strong><code>iac/ansible</code></strong>):</p>
+<div class="language-bash highlight"><span class="filename">Ansible control host</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Different folder for the qcow2 image</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">baseImageDirectory</span><span class="o">=</span>/var/lib/libvirt/images
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Fewer or more workers (overrides hosts.yml kubeworker_count)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">kubeworker_count</span><span class="o">=</span><span class="m">2</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># RAM per worker in MiB (overrides hosts.yml kubeworker_ram_mb)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">kubeworker_ram_mb</span><span class="o">=</span><span class="m">8192</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Different libvirt disk directory (overrides hosts.yml kubeworker_storage_domain)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">kubeworker_storage_domain</span><span class="o">=</span>/data/libvirt/images
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># Ignition URL (use with customize_type=ignition)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>ansible-playbook<span class="w"> </span>playbooks/create-workers-libvirt.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">customize_type</span><span class="o">=</span>ignition<span class="w"> </span>-e<span class="w"> </span><span class="nv">kubeworker_ignition_url</span><span class="o">=</span>http://192.168.1.10/config.ign
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1"># Step 3.2 — machine_k8s + kubeadm join (after VMs exist; define `kubeworkers` in hosts.yml)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>ansible-playbook<span class="w"> </span>playbooks/kubeworker-k8s-bootstrap.yml
+</span></code></pre></div>
+<p>To change the <strong>bridge</strong>, <strong>RAM</strong>, or other fixed values, edit <strong><code>playbooks/create-workers-libvirt.yml</code></strong> or pass variables that the role reads (see <strong><code>create-libvirt-vm</code></strong> defaults and tasks).</p>
+<h2 id="what-happens-next">What happens next<a class="headerlink" href="#what-happens-next" title="Permanent link">&para;</a></h2>
+<p>Run <strong><a href="../kubeworker-k8s-bootstrap/">Step 3.2 — Kubeworker Kubernetes bootstrap</a></strong> when you want <strong><code>machine_k8s</code></strong> and <strong><code>kubeadm join</code></strong> on Fedora Server / cloud-init workers. With <strong><code>customize_type: ignition</code></strong>, workers typically get <strong><code>kubeadm join</code></strong> (or other config) from Ignition served by the kubemaster (<a href="../butane-nginx/">Step 2.3 — Butane (nginx)</a>); you may still use Step 3.2 if you prefer Ansible-driven join instead.</p>
+<p><strong>Note:</strong> If you change <strong><code>config.ign</code></strong> on the kubemaster, delete the cached <strong><code>kubeworker-ignition.ign</code></strong> on the hypervisor or set <strong><code>kubeworker_ignition_force_fetch: true</code></strong> in <strong><code>hosts.yml</code></strong> so <strong><code>get_url</code></strong> downloads again before <strong><code>virt-install</code></strong>.</p>
+<p>After workers join the cluster, continue with <a href="../platform-layer/">Step 3 — Platform layer (Flux)</a> to deploy platform workloads from <strong><code>iac/kubernetes/</code></strong> with GitOps.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "search.share", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
