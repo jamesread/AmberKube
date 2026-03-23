@@ -1,3 +1,4 @@
+---
 # Self-hosted Renovate (weekly). Uses GITHUB_TOKEN (no PAT). Grant enough permissions so Renovate
 # can open PRs, manage the dependency dashboard issue, and edit workflows when bumping action pins.
 # Note: PRs opened by GITHUB_TOKEN do not trigger other workflows on their own (GitHub limitation).
@@ -14,6 +15,9 @@ concurrency:
   group: renovate
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   renovate:
     name: Renovate
@@ -22,11 +26,10 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      packages: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Run Renovate
         uses: renovatebot/github-action@v46.1.5
@@ -34,3 +37,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           LOG_LEVEL: info
+          RENOVATE_AUTODISCOVER: true
+          RENOVATE_AUTODISCOVER_FILTER: ${{ github.repository }}
+          RENOVATE_INTERNAL_CHECKS_FILTER: strict
+          RENOVATE_PLATFORM: github
+          RENOVATE_PLATFORM_COMMIT: true
