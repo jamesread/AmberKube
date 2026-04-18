@@ -30,7 +30,7 @@ jobs:
 
       - name: Run semantic-release
         if: github.ref_type != 'tag'
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v6
         with:
           extra_plugins: |
             - '@semantic-release/changelog'
