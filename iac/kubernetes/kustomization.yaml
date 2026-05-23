@@ -5,7 +5,6 @@ resources:
   - cert-manager/ks.yaml
   - descheduler/ks.yaml
   - flux-system/ks.yaml
-  - haproxy/ks.yaml
   - istio-system/ks.yaml
   - knative-serving/ks.yaml
   - kube-prom/ks.yaml
