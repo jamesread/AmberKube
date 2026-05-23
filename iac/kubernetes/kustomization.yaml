@@ -7,9 +7,7 @@ resources:
   - flux-system/ks.yaml
   - haproxy/ks.yaml
   - istio-system/ks.yaml
-  - keycloak/ks.yaml
   - knative-serving/ks.yaml
-  - kube-dashboard/ks.yaml
   - kube-prom/ks.yaml
   - kube-state-metrics/ks.yaml
   - kubemetrics/ks.yaml

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: promtail
+  name: promtail-system
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -82,7 +82,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: promtail-serviceaccount
-    namespace: default
+    namespace: promtail-system
 roleRef:
   kind: ClusterRole
   name: promtail-clusterrole

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cert-manager
+  name: cert-manager-system
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository

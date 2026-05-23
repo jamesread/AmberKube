@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - daemonset.yaml
 
-namespace: node-exporter
+namespace: node-exporter-system

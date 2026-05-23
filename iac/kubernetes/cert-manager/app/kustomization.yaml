@@ -1,6 +1,6 @@
 kind: Kustomization
 
-namespace: cert-manager
+namespace: cert-manager-system
 
 generatorOptions:
   disableNameSuffixHash: true

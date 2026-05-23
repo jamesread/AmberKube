@@ -22,7 +22,7 @@ fi
 release="$1"
 base_url="${2:-${default_base_url}}"
 url="${base_url}/${release}"
-namespace=olm
+namespace=olm-system
 
 if kubectl get deployment olm-operator -n ${namespace} > /dev/null 2>&1; then
     echo "OLM is already installed in ${namespace} namespace. Exiting..."

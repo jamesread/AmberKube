@@ -11,4 +11,4 @@ configMapGenerator:
 resources:
   - kyverno.yaml
 
-namespace: kyverno
+namespace: kyverno-system

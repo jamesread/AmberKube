@@ -11,4 +11,4 @@ configMapGenerator:
 resources:
   - nginx.yaml
 
-namespace: nginx
+namespace: nginx-system
