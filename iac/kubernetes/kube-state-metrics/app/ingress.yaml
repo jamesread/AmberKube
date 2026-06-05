@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: state-metrics.prom.k8s.teratan.lan
+    - host: state-metrics.prom.k8s.moo.teratan.net
       http:
         paths:
           - path: /
