@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   rules:
-  - host: flux-kustomize-prom.k8s.teratan.lan
+  - host: flux-kustomize-prom.k8s.moo.teratan.net
     http:
       paths:
       - backend:
