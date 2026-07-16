@@ -1,7 +1,7 @@
 ---
-# Self-hosted Renovate (weekly). Uses a PAT from repo secret RENOVATE_TOKEN (create a fine-grained PAT
-# with Contents/Issues/PRs and Dependabot alerts read for this repo; add it under Settings → Secrets).
-# PRs opened with a PAT run as that user and can trigger other workflows (unlike GITHUB_TOKEN PRs).
+# Self-hosted Renovate (weekly). Uses GITHUB_TOKEN so scheduled runs work without a PAT.
+# To have Renovate PRs trigger other workflows, replace with a fine-grained PAT
+# (Contents/Issues/PRs) in RENOVATE_TOKEN and set token: ${{ secrets.RENOVATE_TOKEN }}.
 name: Renovate
 
 on:
@@ -32,7 +32,7 @@ jobs:
       - name: Run Renovate
         uses: renovatebot/github-action@v46.1.14
         with:
-          token: ${{ secrets.RENOVATE_TOKEN }}
+          token: ${{ github.token }}
         env:
           LOG_LEVEL: debug
           RENOVATE_AUTODISCOVER: true
