@@ -1,0 +1,19 @@
+# Kube-linter focuses on owned AmberKube manifests.
+# Vendored upstream dumps are ignored (design goal: zero upstream changes).
+checks:
+  ignorePaths:
+    - iac/kubernetes/knative-serving/**
+    - iac/kubernetes/flux-system/**
+    - iac/kubernetes/olm/app/crds.yaml
+    - iac/kubernetes/olm/app/olm.yaml
+    - iac/kubernetes/kubemetrics/app/components.yaml
+    - "**/values.yaml"
+
+  exclude:
+    # Low-resource homelab target (≈4Gi): forced limits/requests create more harm than good.
+    - unset-cpu-requirements
+    - unset-memory-requirements
+    # node-exporter / log agents intentionally mount host paths and often cannot be fully locked down.
+    - sensitive-host-mounts
+    - run-as-non-root
+    - no-read-only-root-fs

@@ -91,3 +91,63 @@ jobs:
 
       - name: Run ansible-lint
         run: make ansible-lint
+
+  kubeconform:
+    name: kubeconform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Install helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.17.3
+
+      - name: Install kustomize
+        run: |
+          set -euo pipefail
+          version=5.6.0
+          curl -sSfL "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${version}/kustomize_v${version}_linux_amd64.tar.gz" \
+            | tar -xzf - kustomize
+          sudo mv kustomize /usr/local/bin/kustomize
+          kustomize version
+
+      - name: Install kubeconform
+        run: |
+          set -euo pipefail
+          version=0.6.7
+          curl -sSfL "https://github.com/yannh/kubeconform/releases/download/v${version}/kubeconform-linux-amd64.tar.gz" \
+            | tar -xzf - kubeconform
+          sudo mv kubeconform /usr/local/bin/kubeconform
+          kubeconform -v
+
+      - name: Render HelmReleases and kubeconform
+        run: make kubeconform
+
+  kube-lint:
+    name: kube-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install kube-linter
+        run: |
+          set -euo pipefail
+          version=0.8.3
+          curl -sSfL "https://github.com/stackrox/kube-linter/releases/download/v${version}/kube-linter-linux.tar.gz" \
+            | tar -xzf - kube-linter
+          sudo mv kube-linter /usr/local/bin/kube-linter
+          kube-linter version
+
+      - name: Run kube-linter
+        run: make kube-lint

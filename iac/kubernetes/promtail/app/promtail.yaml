@@ -28,7 +28,7 @@ spec:
         - name: ips
       containers:
         - name: promtail-container
-          image: docker.io/grafana/promtail
+          image: docker.io/grafana/promtail:3.6.11
           args:
             - -config.file=/etc/promtail/promtail.yaml
             - -config.expand-env
