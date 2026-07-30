@@ -1,0 +1,7 @@
+---
+# Phase 1 baseline: enforce the min profile in CI.
+# Tighten toward basic/moderate later once style debt is addressed.
+profile: min
+exclude_paths:
+  - group_vars/all/vault.yml
+  - .vault_pass

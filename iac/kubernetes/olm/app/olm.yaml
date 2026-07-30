@@ -123,11 +123,11 @@ spec:
           command:
           - /bin/catalog
           args:
-          - '-namespace'
-          - olm
-          - -configmapServerImage=quay.io/operator-framework/configmap-operator-registry:latest
-          - -util-image
-          -  quay.io/operator-framework/olm@sha256:e74b2ac57963c7f3ba19122a8c31c9f2a0deb3c0c5cac9e5323ccffd0ca198ed
+          - --namespace
+          - $(OPERATOR_NAMESPACE)
+          - --configmapServerImage=quay.io/operator-framework/configmap-operator-registry:latest
+          - --util-image
+          - quay.io/operator-framework/olm@sha256:39081bf0c4a9a167a5244bcc1bceda0a0b92be340776d498e99a51c544cf53ca
           image: quay.io/operator-framework/olm@sha256:39081bf0c4a9a167a5244bcc1bceda0a0b92be340776d498e99a51c544cf53ca
           imagePullPolicy: IfNotPresent
           ports:
@@ -144,6 +144,11 @@ spec:
               path: /healthz
               port: 8080
           terminationMessagePolicy: FallbackToLogsOnError
+          env:
+          - name: OPERATOR_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
           resources:
             requests:
               cpu: 10m
@@ -290,7 +295,7 @@ spec:
                 - --secure-port
                 - "5443"
                 - --global-namespace
-                - olm
+                - olm-system
                 image: quay.io/operator-framework/olm@sha256:39081bf0c4a9a167a5244bcc1bceda0a0b92be340776d498e99a51c544cf53ca
                 imagePullPolicy: Always
                 ports:
